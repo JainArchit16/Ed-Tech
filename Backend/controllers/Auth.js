@@ -2,8 +2,11 @@ const otpGenerator=require("otp-generator");
 const OTP=require("../models/OTP");
 const User=require("../models/User");
 const bcrypt=require("bcrypt");
-const jwt=require("jsonwebtoken")
+const jwt=require("jsonwebtoken");
+const sendMail=require("../utils/mailSender");
 require("dotenv").config();
+
+
 exports.sendOTP=async (req,res)=>{
 
     try
@@ -253,10 +256,68 @@ exports.changePassword=async (req,res)=>{
             })
         }
 
-        const user=await User.findOne()
+        const userDetails = await User.findById(req.user.id);
+
+        const isPasswordMatch = await bcrypt.compare(
+			oldPassword,
+			userDetails.password
+		);
+
+        if(!userDetails)
+        {
+           return res.status(500).json({
+            success:false,
+            message:"No user Exist",
+           }) 
+        }
+        if(oldPassword === newPassword){
+			return res.status(400).json({
+				success: false,
+				message: "New Password cannot be same as Old Password",
+			});
+		}
+
+        if (!isPasswordMatch) {
+			// If old password does not match, return a 401 (Unauthorized) error
+			return res
+				.status(401)
+				.json({ success: false, message: "The password is incorrect" });
+		}
+
+        const hashedPassword=await bcrypt.hash(newPassword,10);
+        const updatedUser=User.findOneAndUpdate(req.user.id,{
+            password:hashedPassword,
+        },
+        {new:true});
+
+        try{
+
+
+            const info=await sendMail(updatedUser.email,
+            "Passowrd Changed",
+            `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`);
+            console.log("Email sent successfully:", emailResponse.response);
+
+        }
+        catch (error) {
+
+			console.error("Error occurred while sending email:", error);
+			return res.status(500).json({
+				success: false,
+				message: "Error occurred while sending email",
+				error: error.message,
+			});
+		}
+
+        
     }
-    catch(err)
+    catch(error)
     {
-        console.error(err.message);
+        console.error("Error occurred while updating password:", error);
+		return res.status(500).json({
+			success: false,
+			message: "Error occurred while updating password",
+			error: error.message,
+		});
     }
 }
