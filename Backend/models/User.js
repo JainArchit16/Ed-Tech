@@ -41,6 +41,7 @@ const userSchema= new mongoose.Schema({
     },
     token :{
         type:String,
+		// expires: 60 * 5, 
     },
     resetPasswordExpires:{
         type:Date,
