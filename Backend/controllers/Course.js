@@ -3,7 +3,7 @@ const User=require("../models/User");
 const Course=require("../models/Course");
 const {uploadImage}=require("../utils/imageUploader");
 
-//nsfs-037
+
 exports.createCourse=async (req,res)=>{
 
     try{
@@ -53,7 +53,7 @@ exports.createCourse=async (req,res)=>{
         })
 
         const updatedUser= await User.findByIdAndUpdate(
-            {_id:instructorDetails._id },                                      //why not instructorDetails._id
+            {_id:instructorDetails._id },                                   
             {
                 $push:{
                     courses: newCourse._id,
@@ -108,4 +108,53 @@ exports.getAllCourse=async (req,res)=>{
         });
     }
 
+}
+
+
+exports.getCourseDetails=async (req,res)=>{
+    try{
+            const {courseId}=req.body;
+            const courseDetails=await Course.findById({_id:courseId})
+                                .populate(
+                                    {
+                                        path:"instructor",
+                                        populate:{
+                                            path:"aadditionalDetails",
+                                        }
+                                    }
+                                )
+                                .populate("ratingAndReviews")
+                                .populate("category")
+                                .populate(
+                                    {
+                                        path:"courseContent",
+                                        populate:{
+                                            path:"Section",
+                                            populate:{
+                                                path:"subSection",
+                                            }
+                                        }
+                                    }
+                                )
+                                .exec();
+            if(!courseDetails){
+                return res.status(404).json({
+                    success:false,
+                    message: `Course Not Found with id ${courseId}`,
+                })
+            }
+            return res.status(200).json({
+                success:true,
+                message:"Course fetched successfully now",
+                data:courseDetails
+            });
+    }
+    catch(err)
+    {
+        console.log(error);
+        return res.status(404).json({
+            success:false,
+			message:`Can't Fetch Course Data`,
+			error:error.message})
+    }
 }

@@ -14,7 +14,7 @@ exports.createSubSection=async (req,res)=>{
                 message:"All Fields Required",
             });
         }
-        const response=await imageUploader(video,process.env.FOLDER_NAME);
+        const response=await imageUploader(video,process.env.FOLDER_VIDEO);
         
         const newSubSection = await subSection.create({
             title,

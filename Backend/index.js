@@ -5,6 +5,14 @@ require("dotenv").config();
 
 require("./config/database").connect();
 
-const route=require("./routes/route");
+require("./config/cloudinary").connect();
 
-app.use("/api/v1",route);
+const userRoutes=require("./routes/User");
+const profileRoutes=require("./routes/Profile");
+const courseRoutes=require("./routes/Course");
+const contactUsRoutes=require("./routes/ContactUs");
+
+
+
+
+
