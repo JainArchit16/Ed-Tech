@@ -1,6 +1,6 @@
 const cloudinary=require("cloudinary").v2;
 
-require("dotenv").require();
+require("dotenv").config();
 
 exports.connect=()=>{
 

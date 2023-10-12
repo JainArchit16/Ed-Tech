@@ -1,4 +1,4 @@
-const Tag=require("../models/Tags");
+const Tag=require("../models/Category");
 const User=require("../models/User");
 const Course=require("../models/Course");
 const {uploadImage}=require("../utils/imageUploader");
@@ -89,7 +89,7 @@ exports.createCourse=async (req,res)=>{
 }
 
 
-exports.getAllCourse=async (req,res)=>{
+exports.getAllCourses=async (req,res)=>{
     try{
         const courses=await Course.find({},{courseName:true}).populate("instructor").exec();
         res.status(200).json({

@@ -33,7 +33,7 @@ exports.createCategory=async (req,res)=>{
 }
 
 
-exports.showAllCategory=async (req,res)=>{
+exports.showAllCategories=async (req,res)=>{
     try{
         const allTags=await Category.find({},{name:true,description:true});
         res.status(200).json({
