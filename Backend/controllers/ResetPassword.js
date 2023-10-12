@@ -1,6 +1,9 @@
 const jwt=require("jsonwebtoken");
 const User=require("../models/User");
 const mailSender=require("../utils/mailSender");
+const { passwordUpdated } = require("../mail/templates/passwordUpdate");
+const bcrypt=require("bcrypt");
+
 require("dotenv").config(); 
 
 exports.resetPasswordToken=async (req,res)=>{
@@ -70,11 +73,14 @@ exports.resetPassword=async (req,res)=>{
             })
         }
 
-        const hashedPassword=bcrypt.hash(password,10);
+        const hashedPassword=await bcrypt.hash(password,10);
         const updated=await User.findOneAndUpdate({token:token},{
             password:hashedPassword,
         },
         {new:true});
+
+
+        await mailSender(user.email,"Password Reset Link",passwordUpdated(updated.email,updated.firstName+" "+updated.lastName));
 
         return res.status(200).json({
             success:true,

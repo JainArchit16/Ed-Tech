@@ -1,6 +1,7 @@
 const Section=require("../models/Section");
 const subSection=require("../models/SubSection");
-const imageUploader=require("../utils/imageUploader");
+const { uploadImageToCloudinary } = require("../utils/imageUploader");
+
 
 exports.createSubSection=async (req,res)=>{
     try{
@@ -14,7 +15,7 @@ exports.createSubSection=async (req,res)=>{
                 message:"All Fields Required",
             });
         }
-        const response=await imageUploader(video,process.env.FOLDER_VIDEO);
+        const response=await uploadImageToCloudinary(video,process.env.FOLDER_VIDEO);
         
         const newSubSection = await subSection.create({
             title,

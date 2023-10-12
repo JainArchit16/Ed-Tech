@@ -10,11 +10,11 @@ exports.updateProfile=async (req,res)=>{
         const user=req.user;
         const {gender,dateOfBirth="",about="",contactNumber}=req.body;
         
-        const userDetails=User.findById(user.id);
+        const userDetails=await User.findById({_id:user.id});
+        // console.log(userDetails);
 
 
-
-        const profile = await Profile.findById(userDetails.additionalDetails);
+        const profile = await Profile.findById({_id:userDetails.additionalDetails});
 
 		// Update the profile fields
 		profile.dateOfBirth = dateOfBirth || profile.dateOfBirth;
@@ -44,7 +44,7 @@ exports.deleteAccount=async (req,res)=>{
     try
     {
         const userId=req.user.id;
-
+        console.log(userId);
         if(!userId)
         {
             return res.status(500).json({
@@ -52,22 +52,41 @@ exports.deleteAccount=async (req,res)=>{
                 message:"User not found",
             })
         }
+        const user=await User.findById({_id:userId});
 
-        const profileId=await User.findById({userId}).additionalDetails;
-        await Profile.findByIdAndDelete({_id:profileId});
-        const courseIds= await User.findById({_id:userId}).courses;
-
-        //There Can be Error in it 
-        for (const courseId of courseIds) {
-            const course = await Course.findById(courseId);
-            if (course) {
-                const indexOfUser = course.enrolledUsers.indexOf(userId);
-                if (indexOfUser !== -1) {
-                    course.enrolledUsers.splice(indexOfUser, 1);
-                    await course.save();
-                }
-            }
+        if(!user)
+        {
+            return res.status(500).json({
+                success:false,
+                message:"User not found",
+            })
         }
+        console.log(user.additionalDetails);
+        await Profile.findByIdAndDelete({_id:user.additionalDetails});
+        
+
+        for (const courseId of user.courses) {
+            await Course.findByIdAndUpdate(
+              courseId,
+              { $pull: { studentsEnroled: id } },
+              { new: true }
+            )
+          }
+
+        // const courseIds= await User.findById({_id:userId}).courses;
+
+
+        // //There Can be Error in it 
+        // for (const courseId of courseIds) {
+        //     const course = await Course.findById(courseId);
+        //     if (course) {
+        //         const indexOfUser = course.enrolledUsers.indexOf(userId);
+        //         if (indexOfUser !== -1) {
+        //             course.enrolledUsers.splice(indexOfUser, 1);
+        //             await course.save();
+        //         }
+        //     }
+        // }
         await User.findByIdAndDelete({_id:userId});
 
 
@@ -179,4 +198,33 @@ exports.updateDisplayPicture=async (req,res)=>{
             message: error.message,
         });
     }
+}
+
+exports.instructorDashboard = async (req, res) => {
+	try {
+		const id = req.user.id;
+		const courseData = await Course.find({instructor:id});
+		const courseDetails = courseData.map((course) => {
+			totalStudents = course?.studentsEnrolled?.length;
+			totalRevenue = course?.price * totalStudents;
+			const courseStats = {
+				_id: course._id,
+				courseName: course.courseName,
+				courseDescription: course.courseDescription,
+				totalStudents,
+				totalRevenue,
+			};
+			return courseStats;
+		});
+		res.status(200).json({
+			success: true,
+			message: "User Data fetched successfully",
+			data: courseDetails,
+		});
+	} catch (error) {
+		return res.status(500).json({
+			success: false,
+			message: error.message,
+		});
+	}
 }
