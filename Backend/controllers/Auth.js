@@ -1,9 +1,11 @@
+const Profile=require("../models/Profile");
 const otpGenerator=require("otp-generator");
 const OTP=require("../models/OTP");
 const User=require("../models/User");
 const bcrypt=require("bcrypt");
 const jwt=require("jsonwebtoken");
 const sendMail=require("../utils/mailSender");
+
 require("dotenv").config();
 
 
@@ -83,7 +85,6 @@ exports.signup=async (req,res)=>{
            !email       ||
             !password   ||
             !confirmPassword||
-            !contactNumber||
             !otp)
         {
             return res.status(403).json({
@@ -109,11 +110,9 @@ exports.signup=async (req,res)=>{
                 success:false,
             })
         }
-        
-        const recentOTP=OTP.find({email}).sort({createdAt:-1}).limit(1);
-        console.log(recentOTP);
-        
-        if(recentOTP.length ==0)
+        // console.log(otp);
+        const recentOTP=await OTP.find({email:email}).sort({createdAt:-1}).limit(1);
+        if(recentOTP.length == 0)
         {
             return res.status(400).json(
                 {
@@ -121,8 +120,8 @@ exports.signup=async (req,res)=>{
                     message:"OTP Expired",
                 })
         }
-
-        if(recentOTP!==otp)
+        // console.log("recent one is",recentOTP[0].otp);
+        if(recentOTP[0].otp !== otp)
         {
             return res.status(400).json(
             {
@@ -130,10 +129,16 @@ exports.signup=async (req,res)=>{
                 message:"Wrong OTP",
             })
         }
-
+        // if(recentOTP[0].otp === otp)
+        // {
+        //     return res.status(400).json(
+        //     {
+        //         success:true,
+        //         message:"OTP",
+        //     })
+        // }
 
         let hashedPassword=await bcrypt.hash(password,10);
-
         let profileDetails=await Profile.create({
             gender:null,
             dateOfBirth:null,
@@ -150,9 +155,9 @@ exports.signup=async (req,res)=>{
             additionalDetails:profileDetails._id,
             image:`https://api.dicebear.com/7.x/initials/svg?seed=${firstName} ${lastName}`,
        })
-
        return res.status(200).json({
         message:"User Created Successfully",
+        user,
         success:true,
        })
     }
@@ -185,7 +190,8 @@ exports.login=async (req,res)=>{
                 success:false,
             })
         }
-        const user=await User.find({email}).populate("additionalDetails");
+        let user=await User.find({email}).populate("additionalDetails").exec();
+        user=user[0];
         if(!user)
         {
             return res.status(401).json({
@@ -193,6 +199,7 @@ exports.login=async (req,res)=>{
                 message:"No User Exist",
             })
         }
+        
         if(await bcrypt.compare(password,user.password))
         {
             const payload={
@@ -214,6 +221,7 @@ exports.login=async (req,res)=>{
             }).status(200).json({
                 success:true,
                 message:"User Logged In",
+                user,
             })
         }
         else

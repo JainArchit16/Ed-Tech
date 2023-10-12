@@ -1,6 +1,7 @@
 const Profile=require('../models/Profile');
 const User=require("../models/User");
 const Course=require("../models/Course");
+const { uploadImageToCloudinary } = require('../utils/imageUploader');
 
 exports.updateProfile=async (req,res)=>{
 
@@ -138,4 +139,44 @@ exports.getUserDetails=async (req,res)=>{
                 error:error.message });
 	}
     
+}
+
+exports.updateDisplayPicture=async (req,res)=>{
+    try
+    {
+        const userId=req.user.id;
+
+        let user=await User.findById({_id:userId});
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        const image=req.files.pfp;
+        if (!image) {
+            return res.status(404).json({
+                success: false,
+                message: "Image not found",
+            });
+        }
+        const response=await uploadImageToCloudinary(image,process.env.FOLDER_NAME);
+        user=await User.findByIdAndUpdate({_id:userId},{
+            image:response.secure_url
+        },{new:true})
+        res.status(200).json({
+            success: true,
+            message: "Image updated successfully",
+            user,
+        });
+
+    }
+    catch(error)
+    {
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
 }
