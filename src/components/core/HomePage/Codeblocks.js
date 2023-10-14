@@ -69,7 +69,7 @@ const Codeblocks = ({
                 />
 
             </div>
-            <div className='w-[382.95px] h-[257.05px] opacity-[20%] blur-xl rotate-90 -top-15 -left-64 bg-gradient-to-b from-[#8A2BE2] via-[#FFA500] to-[#F8F8FF] relative
+            <div className='w-[382.95px] h-[257.05px] opacity-[20%] blur-2xl rotate-90 -top-15 -left-64 bg-gradient-to-b from-[#8A2BE2] via-[#FFA500] to-[#F8F8FF] relative
             rounded-[50%]'></div>
       </div>
     </div>
