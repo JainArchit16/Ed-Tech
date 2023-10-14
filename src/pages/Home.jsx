@@ -5,9 +5,11 @@ import HighlightText from '../components/core/HomePage/HighlightText';
 import CTAButton from "../components/core/HomePage/Button";
 import videoUrl from "../assets/Images/banner.mp4"
 import Codeblocks from '../components/core/HomePage/Codeblocks';
-import Footer from '../components/core/HomePage/Footer';
+import Footer from '../components/common/Footer';
 import TimelineSection from '../components/core/HomePage/TimelineSection';
 import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection';
+import BecomeInstructor from '../components/core/HomePage/BecomeInstructor';
+import ExploreMore from '../components/core/HomePage/ExploreMore';
 
 const Home = () => {
   return (
@@ -111,6 +113,10 @@ const Home = () => {
                 codeColor={"text-white-25"}
             />
         </div>
+        <div className='mx-auto flex flex-col justify-between items-center relative w-full h-[30rem]'>
+
+        <ExploreMore/>
+        </div>
       </div>
             
     <div className='w-full bg-pure-greys-5 text-richblack-700'>
@@ -157,6 +163,7 @@ const Home = () => {
         <LearningLanguageSection/>
 
     </div>
+        <BecomeInstructor/>
 
       <Footer/>
     </div>
