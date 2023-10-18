@@ -48,10 +48,9 @@ const Home = () => {
             <video 
             muted
             loop
-            autoPlay className='w-[75%] h-[20%] z-10 shadow-[-35px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]'>
+            autoPlay className='w-[75%] h-[20%] z-10 shadow-[15px_15px_0_0] shadow-white-50'>
                 <source src={videoUrl} type='video/mp4'></source>
             </video>
-            <div className='bg-white absolute w-[950px] h-[525px] top-8 right-36'></div>
         </div>
         <div className='mx-32'>
             <Codeblocks
