@@ -98,7 +98,8 @@ export const login=(email,password,navigate)=>{
 
             dispatch(setUser({ ...response.data.user, image: userImage }))
             localStorage.setItem("user", JSON.stringify(response.data.user))
-            localStorage.setItem("token", JSON.stringify(response.data.token))
+            console.log(response.data.user.token);
+            localStorage.setItem("token", JSON.stringify(response.data.user.token))
             navigate("/dashboard/my-profile")
 
         }

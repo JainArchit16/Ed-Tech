@@ -223,7 +223,7 @@ exports.login=async (req,res)=>{
         else
         {
             return res.status(401).json({
-                message:"wrong Password",
+                message:"Wrong Password",
                 success:false,
             })
         }

@@ -49,7 +49,7 @@ const Navbar = () => {
         return matchPath({path:route},location.pathname);
     }
   return (
-    <div className=' flex flex-row w-full justify-between my-2 mx-auto items-center border-b-richblack-700 border-b-[1px] pb-2'>
+    <div className=' flex flex-row w-full justify-between pt-2 mx-auto items-center border-b-richblack-700 border-b-[1px] pb-3'>
     <div className='flex flex-row justify-between w-[80%] items-center mx-auto'>
 
       <div>
