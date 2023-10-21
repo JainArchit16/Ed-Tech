@@ -61,12 +61,16 @@ const VerifyEmail = () => {
                 <form onSubmit={handleSubmit} >
                 {
                     <OTPInput
-                        value={otp}
-                        onChange={(e)=>setotp(e.target.value)}
-                        numInputs={6}
-                        renderSeparator={<span>-</span>}
-                        renderInput={(props) => <input {...props} />}
-                    />
+                    value={otp}
+                    onChange={setotp}
+                    numInputs={6}
+                    renderSeparator={<span>-</span>}
+                    inputStyle="w-[20px] rounded-[8px] border-[1px] border-richblack-500 text-[3rem] text-center bg-[#161D29]"
+                    focusStyle="border-[5px] border-red-500"
+                    isInputNum={true}
+                    shouldAutoFocus={true}
+                    containerStyle="flex justify-between gap-4"
+                    renderInput={(props) => <input {...props} />} />
                 }
                     
                     <button type='submit' className='bg-yellow-50 text-black font inter font-xl p-2 rounded-md my-2'>

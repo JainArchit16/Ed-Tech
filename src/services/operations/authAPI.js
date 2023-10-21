@@ -1,8 +1,11 @@
 import toast from "react-hot-toast";
 import {setLoading,setToken} from "../../slices/authSlice";
+import { setUser } from "../../slices/profileSlice";
 import { apiconnector } from "../apiconnector";
 import {endpoints} from "../apis";
-
+// import { useNavigate } from "react-router-dom";
+import { resetCart } from "../../slices/cartSlice";
+import { useEffect } from "react";
 
 export const sendOtp=(email,navigate)=>{
     return async(dispatch)=>{
@@ -18,19 +21,19 @@ export const sendOtp=(email,navigate)=>{
                     throw new Error(response.data.message)
                 }
                 toast.success("Otp Sent");
-                navigate("/verify-email");
+                navigate("/verifyemail");
         }
         catch(error)
         {
             console.log("SENDOTP API ERROR............", error)
             toast.error(error?.response?.data?.message)
-            dispatch(setProgress(100));
+            // dispatch(setProgress(100));
         }
         dispatch(setLoading(false));
     }
 }
 
-export const signup=(accountType,
+export const signUp=(accountType,
     firstName,
     lastName,
     email,
@@ -42,6 +45,7 @@ export const signup=(accountType,
         dispatch(setLoading(true));
         try{
             const response=await apiconnector("POST",endpoints.SIGNUP_API,{
+                accountType,
                 firstName,
                 lastName,
                 email,
@@ -64,11 +68,12 @@ export const signup=(accountType,
             toast.error("Signup Failed")
             navigate("/signup")
         }
+        dispatch(setLoading(false))
     }
 }
 
 
-export const login=(email,password)=>{
+export const login=(email,password,navigate)=>{
     return async(dispatch)=>{
         dispatch(setLoading(true));
         try{
@@ -156,5 +161,22 @@ export const resetPassword=(password,confirmPassword,token)=>{
         }
         dispatch(setLoading(false));
 
+    }
+}
+
+//Not by me
+export const logout=(navigate)=>{
+    return async(dispatch)=>{
+        dispatch(setLoading(true));
+        
+            dispatch(setToken(null))
+            dispatch(setUser(null))
+            dispatch(resetCart())
+            navigate("/login")
+            localStorage.removeItem("token")
+            localStorage.removeItem("user")
+            toast.success("Logged Out")
+        dispatch(setLoading(false));
+        
     }
 }

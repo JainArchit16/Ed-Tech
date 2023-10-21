@@ -79,7 +79,7 @@ exports.signup=async (req,res)=>{
             contactNumber,
             otp,
         }=req.body;
-
+        console.log("maza");
         if( !firstName  ||
             !lastName   ||
            !email       ||

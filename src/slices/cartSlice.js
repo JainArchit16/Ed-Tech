@@ -1,6 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit"
 import toast from "react-hot-toast";
 
+
+//Not by me
+
+
 const initialState={
     cart: localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))

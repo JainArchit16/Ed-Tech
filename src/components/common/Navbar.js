@@ -101,11 +101,11 @@ const Navbar = () => {
       }
 
       </ul>
-      <div className='flex flex-row gap-4 text-white'>
+      <div className='flex flex-row gap-4 text-white items-center'>
         {
             user&&user?.accountType !=="Instructor" && (
                 <Link to="/dashboard/cart" className='relative'>
-                    <AiOutlineShoppingCart/>
+                    <AiOutlineShoppingCart className='text-2xl mr-3'/>
                     {
                         totalItems>0 && (
                             <span>
@@ -117,9 +117,13 @@ const Navbar = () => {
             )
         }
         {
-            token===null &&(
+            token===null?(
                 <Link to="/login">
                     <p className='rounded-lg bg-richblack-800 p-2 text-richblack-200'>Log in</p>
+                </Link>
+            ):(
+                <Link to="/logout">
+                    <p className='rounded-lg bg-richblack-800 p-2 text-richblack-200'>Log Out</p>
                 </Link>
             )
         }

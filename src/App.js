@@ -9,6 +9,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import UpdatePassword from './pages/UpdatePassword';
 import VerifyEmail from './pages/VerifyEmail';
 import ContactUs from './pages/ContactUs';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Logout from './pages/Logout';
 
 
 function App() {
@@ -23,6 +26,9 @@ function App() {
     <Route path='/update-password/:id' element={<UpdatePassword/>}></Route>
     <Route path='/verifyemail' element={<VerifyEmail/>}></Route>
     <Route path='/contact' element={<ContactUs/>}></Route>
+    <Route path='/login' element={<Login/>}></Route>
+    <Route path='/signup' element={<Signup/>}></Route>
+    <Route path='/logout' element={<Logout/>}></Route>
     </Routes>
     </div>
   );
