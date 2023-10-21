@@ -6,6 +6,7 @@ export const endpoints={
     RESETPASSTOKEN_API: BASE_URL+"/auth/reset-password-token",
     SENDOTP_API: BASE_URL + "/auth/sendotp",
     SIGNUP_API: BASE_URL + "/auth/signup",
+    LOGIN_API: BASE_URL+"/auth/login",
 }
 
 export const categories = {
@@ -17,3 +18,7 @@ export const categories = {
 export const settingsEndpoints={
     CHANGE_PASSWORD_API: BASE_URL+"/auth/changepassword"
 }
+
+export const contactusEndpoint = {
+    CONTACT_US_API: BASE_URL + "/contact/contactUs",
+  };

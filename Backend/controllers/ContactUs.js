@@ -1,4 +1,5 @@
 const mailSender=require("../utils/mailSender");
+require("dotenv").config();
 
 exports.contactUs=async (req,res)=>{
     try{

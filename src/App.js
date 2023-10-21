@@ -8,6 +8,7 @@ import Error from './pages/Error';
 import ForgotPassword from './pages/ForgotPassword';
 import UpdatePassword from './pages/UpdatePassword';
 import VerifyEmail from './pages/VerifyEmail';
+import ContactUs from './pages/ContactUs';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
     <Route path='/forgot-password' element={<ForgotPassword/>}></Route>
     <Route path='/update-password/:id' element={<UpdatePassword/>}></Route>
     <Route path='/verifyemail' element={<VerifyEmail/>}></Route>
+    <Route path='/contact' element={<ContactUs/>}></Route>
     </Routes>
     </div>
   );

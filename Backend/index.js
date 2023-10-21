@@ -40,6 +40,7 @@ app.use("/api/v1/auth",userRoute);
 app.use("/api/v1/profile",profileRoutes);
 app.use("/api/v1/course",courseRoutes);
 app.use("/api/v1/payment",paymentRoute);
+app.use("/api/v1/contact",contactUsRoutes);
 
 app.get("/",(req,res)=>{
     return res.json({
