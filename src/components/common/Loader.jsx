@@ -3,7 +3,7 @@ import { Bars } from 'react-loader-spinner'
 
 const Loader = () => {
   return (
-    <div className='w-full h-[91vh] flex flex-col justify-center items-center'>
+    <div className='w-full h-[91.6vh] flex flex-col justify-center items-center'>
 
       <Bars
   height="80"

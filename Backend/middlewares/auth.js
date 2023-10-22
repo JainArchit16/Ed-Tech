@@ -3,7 +3,7 @@ require("dotenv").config();
 const User=require("../models/User");
 
 
-// Glti yahan hogi agaar role mien chck krlena ś
+// Glti yahan hogi agaar role mien chck krlena 
 
 
 exports.auth=async (req,res,next)=>{
@@ -17,6 +17,7 @@ exports.auth=async (req,res,next)=>{
             success:false,
         })
     }
+    // console.log(token);
     try{
         let decode=jwt.verify(token,process.env.JWT_SECRET);
         req.user=decode;

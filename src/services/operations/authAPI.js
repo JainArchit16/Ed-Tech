@@ -5,7 +5,7 @@ import { apiconnector } from "../apiconnector";
 import {endpoints} from "../apis";
 // import { useNavigate } from "react-router-dom";
 import { resetCart } from "../../slices/cartSlice";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 export const sendOtp=(email,navigate)=>{
     return async(dispatch)=>{
@@ -80,6 +80,7 @@ export const login=(email,password,navigate)=>{
             const response=await apiconnector("POST",endpoints.LOGIN_API,{
                 email,password
             })
+            
             console.log("LOGIN API RESPONSE............", response)
 
             if (!response.data.success) {
@@ -99,7 +100,9 @@ export const login=(email,password,navigate)=>{
             dispatch(setUser({ ...response.data.user, image: userImage }))
             localStorage.setItem("user", JSON.stringify(response.data.user))
             console.log(response.data.user.token);
-            localStorage.setItem("token", JSON.stringify(response.data.user.token))
+            dispatch(setToken(response.data.user.token));
+            localStorage.setItem('token', response.data.user.token);            
+            console.log("Setting token",response.data?.user?.token);
             navigate("/dashboard/my-profile")
 
         }

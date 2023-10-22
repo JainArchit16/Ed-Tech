@@ -15,6 +15,7 @@ import Errorpage from "./pages/Errorpage";
 import MyProfile from './components/core/Dashboard/MyProfile';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/core/Auth/PrivateRoute';
+import Setting from './components/core/Dashboard/Setting';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Dashboard/>
     </PrivateRoute>}>
       <Route path='my-profile' element={<MyProfile/>}></Route>
+      <Route path='settings' element={<Setting/>}></Route>
     </Route>
     
     <Route path='*' element={<Errorpage/>}></Route>

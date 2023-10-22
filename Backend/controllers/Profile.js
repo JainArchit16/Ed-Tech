@@ -24,11 +24,15 @@ exports.updateProfile=async (req,res)=>{
 
         await profile.save();
 
+        const updatedUserDetails = await User.findById({_id:user.id})
+        .populate("additionalDetails")
+        .exec()
+
         return res.json({
-			success: true,
-			message: "Profile updated successfully",
-			profile,
-		});
+        success: true,
+        message: "Profile updated successfully",
+        updatedUserDetails,
+        })
     }
     catch (error) {
 		console.log(error);
@@ -164,7 +168,6 @@ exports.updateDisplayPicture=async (req,res)=>{
     try
     {
         const userId=req.user.id;
-
         let user=await User.findById({_id:userId});
         if (!user) {
             return res.status(404).json({
@@ -172,8 +175,9 @@ exports.updateDisplayPicture=async (req,res)=>{
                 message: "User not found",
             });
         }
-
+        
         const image=req.files.pfp;
+        console.log(image);
         if (!image) {
             return res.status(404).json({
                 success: false,

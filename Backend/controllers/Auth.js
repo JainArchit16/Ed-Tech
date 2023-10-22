@@ -112,7 +112,7 @@ exports.signup=async (req,res)=>{
         }
         // console.log(otp);
         const recentOTP=await OTP.find({email:email}).sort({createdAt:-1}).limit(1);
-        if(recentOTP.length == 0)
+        if(recentOTP.length === 0)
         {
             return res.status(400).json(
                 {

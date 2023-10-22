@@ -58,7 +58,7 @@ const VerifyEmail = () => {
                 <p className='text-richblack-400 text-lg'>
                     A verification mail has been sent to you.Enter the code Below.
                 </p>
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={handleSubmit} className='mt-8'>
                 {
                     <OTPInput
                     value={otp}
@@ -73,7 +73,7 @@ const VerifyEmail = () => {
                     renderInput={(props) => <input {...props} />} />
                 }
                     
-                    <button type='submit' className='bg-yellow-50 text-black font inter font-xl p-2 rounded-md my-2'>
+                    <button type='submit' className='bg-yellow-50 text-black font inter font-xl p-2 rounded-md mt-12'>
                         Verify Email
                     </button>
                 </form>

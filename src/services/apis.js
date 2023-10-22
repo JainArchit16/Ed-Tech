@@ -16,9 +16,13 @@ export const categories = {
 
 
 export const settingsEndpoints={
-    CHANGE_PASSWORD_API: BASE_URL+"/auth/changepassword"
+    CHANGE_PASSWORD_API: BASE_URL+"/auth/changepassword",
+    UPDATE_DISPLAY_PICTURE_API: BASE_URL + "/profile/updateDisplayPicture",
+    UPDATE_PROFILE_API: BASE_URL + "/profile/updateProfile",
+    DELETE_PROFILE_API: BASE_URL + "/profile/deleteProfile",
 }
 
 export const contactusEndpoint = {
     CONTACT_US_API: BASE_URL + "/contact/contactUs",
   };
+

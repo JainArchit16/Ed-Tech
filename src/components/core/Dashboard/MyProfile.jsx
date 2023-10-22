@@ -6,6 +6,9 @@ import {AiFillEdit} from "react-icons/ai"
 
 const MyProfile = () => {
     const {user} =useSelector((state)=>state.profile);
+
+    const {token} =useSelector((state)=>state.auth);
+    console.log("Profile",token);
     const navigate=useNavigate();
 
 
