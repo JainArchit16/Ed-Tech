@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import Loader from "../components/common/Loader";
 import Sidebar from '../components/core/Dashboard/Sidebar';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet} from 'react-router-dom';
 
 
 const Dashboard = () => {
@@ -18,9 +18,9 @@ const Dashboard = () => {
         )
     }
   return (
-    <div className='relative w-[100vw] flex flex-row h-[150vh]'>
+    <div className='w-[100vw] flex flex-row h-full min-h-[100vh]'>
       <Sidebar/>
-      <div className='w-full'>
+      <div className='w-full h-full min-h-[100vh]'>
             
                 <Outlet/>
       </div>

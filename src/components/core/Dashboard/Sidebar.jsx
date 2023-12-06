@@ -4,7 +4,7 @@ import { logout } from '../../../services/operations/authAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../common/Loader';
 import SidebarLinks from './SidebarLinks';
-import { Navigate, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import {VscSignOut} from "react-icons/vsc"
 import ConfirmationModal from '../../common/ConfirmationModal';
 
@@ -24,10 +24,10 @@ const Sidebar = () => {
         )
     }
   return (
-    <div className='w-[20%] h-[100%]'>
-      <div className='flex flex-col border-r-[1px] border-richblack-700 h-[100%] bg-richblack-800 py-10 text-[#838894] gap-4 w-full'>
+    <div className='w-[20%]  min-h-[100vh]'>
+      <div className='flex flex-col border-r-[1px] border-richblack-700 h-[100%] bg-richblack-800 py-10 text-[#838894] gap-4 w-full min-h-screen'>
 
-        <div className='flex flex-col gap-3'>
+        <div className='flex flex-col gap-3 h-full'>
           {
             sidebarLinks.map((element)=>{
               if(element.type && user?.accountType!==element.type) return null;

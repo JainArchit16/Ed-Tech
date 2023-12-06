@@ -4,7 +4,7 @@ import {NavbarLinks} from "../../data/navbar-links";
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import {useSelector} from "react-redux";
 import {AiOutlineShoppingCart} from "react-icons/ai"
-import profileDropDown from "../../components/core/Auth/profileDropDown";
+import ProfileDropDown from "../core/Auth/ProfileDropDown";
 import { apiconnector } from '../../services/apiconnector';
 import { categories } from '../../services/apis';
 import {TiArrowSortedDown} from "react-icons/ti"
@@ -117,13 +117,9 @@ const Navbar = () => {
             )
         }
         {
-            token===null?(
+            token===null&&(
                 <Link to="/login">
                     <p className='rounded-lg bg-richblack-800 p-2 text-richblack-200'>Log in</p>
-                </Link>
-            ):(
-                <Link to="/logout">
-                    <p className='rounded-lg bg-richblack-800 p-2 text-richblack-200'>Log Out</p>
                 </Link>
             )
         }
@@ -136,7 +132,7 @@ const Navbar = () => {
             )
         }
         {
-            token!==null && <profileDropDown/>
+            token!==null && <ProfileDropDown/>
         }
         
       </div>

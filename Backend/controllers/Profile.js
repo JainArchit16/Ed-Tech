@@ -2,25 +2,31 @@ const Profile=require('../models/Profile');
 const User=require("../models/User");
 const Course=require("../models/Course");
 const { uploadImageToCloudinary } = require('../utils/imageUploader');
+const CourseProgress = require('../models/CourseProgress');
+const { convertSecondsToDuration } = require("../utils/secToDuration")
 
 exports.updateProfile=async (req,res)=>{
 
     try
     {
         const user=req.user;
-        const {gender,dateOfBirth="",about="",contactNumber}=req.body;
+        const {gender,dateOfBirth="",about="",contactNumber,firstName,lastName}=req.body;
         
-        const userDetails=await User.findById({_id:user.id});
+        const userDetails=await User.findByIdAndUpdate({_id:user.id},{
+          firstName:firstName,
+          lastName:lastName,
+          image:`https://api.dicebear.com/7.x/initials/svg?seed=${firstName} ${lastName}`,
+        },{new:true});
         // console.log(userDetails);
 
 
         const profile = await Profile.findById({_id:userDetails.additionalDetails});
 
-		// Update the profile fields
-		profile.dateOfBirth = dateOfBirth || profile.dateOfBirth;
-		profile.about = about || profile.about;
-		profile.gender=gender || profile.gender;
-		profile.contactNumber = contactNumber || profile.contactNumber;
+		    // Update the profile fields
+        profile.dateOfBirth = dateOfBirth || profile.dateOfBirth;
+        profile.about = about || profile.about;
+        profile.gender=gender || profile.gender;
+        profile.contactNumber = contactNumber || profile.contactNumber;
 
         await profile.save();
 
@@ -111,28 +117,71 @@ exports.deleteAccount=async (req,res)=>{
 
 }
 
+//See Not by me carefully
 exports.getEnrolledCourses=async (req,res) => {
 	try {
-        const id = req.user.id;
-        const user = await User.findById(id);
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found",
-            });
+        const userId = req.user.id
+        let userDetails = await User.findOne({
+          _id: userId,
+        })
+          .populate({
+            path: "courses",
+            populate: {
+              path: "courseContent",
+              populate: {
+                path: "subSection",
+              },
+            },
+          })
+          .exec()
+        userDetails = userDetails.toObject()
+        var SubsectionLength = 0
+        for (var i = 0; i < userDetails.courses.length; i++) {
+          let totalDurationInSeconds = 0
+          SubsectionLength = 0
+          for (var j = 0; j < userDetails.courses[i].courseContent.length; j++) {
+            totalDurationInSeconds += userDetails.courses[i].courseContent[
+              j
+            ].subSection.reduce((acc, curr) => acc + parseInt(curr.timeDuration), 0)
+            userDetails.courses[i].totalDuration = convertSecondsToDuration(
+              totalDurationInSeconds
+            )
+            SubsectionLength +=
+              userDetails.courses[i].courseContent[j].subSection.length
+          }
+          let courseProgressCount = await CourseProgress.findOne({
+            courseID: userDetails.courses[i]._id,
+            userId: userId,
+          })
+          courseProgressCount = courseProgressCount?.completedVideos.length
+          if (SubsectionLength === 0) {
+            userDetails.courses[i].progressPercentage = 100
+          } else {
+            // To make it up to 2 decimal point
+            const multiplier = Math.pow(10, 2)
+            userDetails.courses[i].progressPercentage =
+              Math.round(
+                (courseProgressCount / SubsectionLength) * 100 * multiplier
+              ) / multiplier
+          }
         }
-        
-        res.status(200).json({
-            success: true,
-            message: "User Data fetched successfully",
-            data: enrolledCourses,
-        });
-    } catch (error) {
-        return res.status(500).json({
+    
+        if (!userDetails) {
+          return res.status(400).json({
             success: false,
-            message: error.message,
-        });
-    }
+            message: `Could not find user with id: ${userDetails}`,
+          })
+        }
+        return res.status(200).json({
+          success: true,
+          data: userDetails.courses,
+        })
+      } catch (error) {
+        return res.status(500).json({
+          success: false,
+          message: error.message,
+        })
+      }
 }
 
 exports.getUserDetails=async (req,res)=>{

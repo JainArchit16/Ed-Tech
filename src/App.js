@@ -16,10 +16,16 @@ import MyProfile from './components/core/Dashboard/MyProfile';
 import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/core/Auth/PrivateRoute';
 import Setting from './components/core/Dashboard/Setting';
+import EnrolledCourses from './components/core/Dashboard/EnrolledCourses';
+import Cart from "./components/core/Dashboard/Cart/index";
+import { ACCOUNT_TYPE } from './utils/constants';
+import { useSelector } from 'react-redux';
+import AddCourse from './components/core/Dashboard/AddCourse';
 
 function App() {
+  const {user}=useSelector((state)=>state.profile);
   return (
-    <div className='w-screen h-[100%] flex flex-col bg-richblack-900 font-inter'>
+    <div className='w-screen h-fit flex flex-col bg-richblack-900 font-inter'>
     <Navbar></Navbar>
     <Routes>
     <Route path='/' element={<Home></Home>}></Route>
@@ -36,6 +42,22 @@ function App() {
     </PrivateRoute>}>
       <Route path='my-profile' element={<MyProfile/>}></Route>
       <Route path='settings' element={<Setting/>}></Route>
+      {
+        user?.accountType===ACCOUNT_TYPE.STUDENT && (<>
+          <Route path='enrolled-courses' element={<EnrolledCourses/>}></Route>
+          <Route path='cart' element={<Cart/>}></Route>
+        </>)
+
+        
+      }
+      {
+        user?.accountType===ACCOUNT_TYPE.INSTRUCTOR &&(
+          <>
+          <Route path='add-course' element={<AddCourse/>}></Route>
+          </>
+        )
+      }
+      
     </Route>
     
     <Route path='*' element={<Errorpage/>}></Route>

@@ -20,7 +20,7 @@ const ForgotPassword = () => {
     }
 
     return (
-        <div className='flex flex-col justify-center items-center h-[91vh] text-white w-full mx-auto'>
+        <div className='flex flex-col justify-center items-center min-h-[91.7vh] text-white w-full mx-auto '>
     {
         Loading?(
             <Loader/>
