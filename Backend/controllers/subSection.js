@@ -1,13 +1,13 @@
 const Section=require("../models/Section");
-const subSection=require("../models/SubSection");
+const SubSection=require("../models/SubSection");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
-
+const Course=require("../models/Course");
 
 exports.createSubSection=async (req,res)=>{
     try{
 
         const {title,description,sectionId}=req.body;
-        const video=req.files.videoFile;
+        const video=req.files.video;
         if(!title || !description || !video)
         {
             return res.status(400).json({
@@ -17,7 +17,7 @@ exports.createSubSection=async (req,res)=>{
         }
         const response=await uploadImageToCloudinary(video,process.env.FOLDER_VIDEO);
         
-        const newSubSection = await subSection.create({
+        const newSubSection = await SubSection.create({
             title,
             description,
             videoUrl:response.secure_url,
@@ -44,14 +44,13 @@ exports.createSubSection=async (req,res)=>{
     
 }
 
-//Not by me do carefully
 
-
+//Not by me 
 exports.updateSubSection = async (req,res) => {
 
 	try {
 		// Extract necessary information from the request body
-		const { SubsectionId, title , description,courseId } = req.body;
+		const { subSectionId, title , description,courseId } = req.body;
 
 		const video = req?.files?.videoFile;
 
@@ -66,7 +65,8 @@ exports.updateSubSection = async (req,res) => {
 		}
 
 		// Create a new sub-section with the necessary information
-		const SubSectionDetails = await SubSection.findByIdAndUpdate({_id:SubsectionId},{
+		// console.log(subsectionId);
+		const SubSectionDetails = await SubSection.findByIdAndUpdate({_id:subSectionId},{
 			title: title || SubSection.title,
 			// timeDuration: timeDuration,
 			description: description || SubSection.description,
@@ -91,7 +91,7 @@ exports.updateSubSection = async (req,res) => {
 
 
 
-
+//Not by me
 exports.deleteSubSection = async(req, res) => {
 
 	try {

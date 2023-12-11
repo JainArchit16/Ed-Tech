@@ -54,17 +54,24 @@ exports.createSection=async (req,res) =>{
 
 exports.updateSection=async (req,res)=>{
     try {
-		const { sectionName, sectionId} = req.body;
+		const { sectionName, sectionId,courseId} = req.body;
 
 		const section = await Section.findByIdAndUpdate(
 			sectionId,
 			{ sectionName },
 			{ new: true }
 		);
+		const updatedCourse = await Course.findById(courseId)
+          .populate({
+              path:"courseContent",
+              populate: {
+                  path:"subSection"
+              }});
         
         res.status(200).json({
 			success: true,
 			message: "Section updated successfully",
+			updatedCourse
 		});
 
         
