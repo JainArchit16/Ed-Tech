@@ -45,7 +45,7 @@ const Index = () => {
       : COURSE_STATUS.DRAFT;
     formData.append("status", courseStatus);
     setLoading(true);
-    const result = await editCourseDetails(formData, token);
+    const result = await editCourseDetails(token, formData);
     if (result) {
       goToCourses();
     }

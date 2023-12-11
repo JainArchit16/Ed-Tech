@@ -4,6 +4,7 @@ const Course = require("../models/Course");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const Section = require("../models/Section");
 const SubSection = require("../models/SubSection");
+const cloudinary = require("cloudinary").v2;
 
 exports.createCourse = async (req, res) => {
   try {
@@ -287,6 +288,20 @@ exports.deleteCourse = async (req, res) => {
       if (section) {
         const subSections = section.subSection;
         for (const subSectionId of subSections) {
+          const subSection = await SubSection.findById({ _id: subSectionId });
+          if (subSection && subSection.videoUrl) {
+            // Extract public_id from Cloudinary URL
+            console.log("mkc");
+            const publicId = subSection.videoUrl
+              .split("/")
+              .pop()
+              .replace(/\.[^/.]+$/, "");
+
+            // Delete the video from Cloudinary
+            cloudinary.uploader.destroy(`videos/${publicId}`, {
+              resource_type: "video",
+            });
+          }
           await SubSection.findByIdAndDelete(subSectionId);
         }
       }
@@ -294,6 +309,16 @@ exports.deleteCourse = async (req, res) => {
       // Delete the section
       await Section.findByIdAndDelete(sectionId);
     }
+
+    const publicIdImage = course.thumbnail
+      .split("/")
+      .pop()
+      .replace(/\.[^/.]+$/, "");
+
+    cloudinary.uploader.destroy(`images/${publicIdImage}`, {
+      type: "upload",
+      resource_type: "image",
+    });
 
     // Delete the course
     await Course.findByIdAndDelete(courseId);
