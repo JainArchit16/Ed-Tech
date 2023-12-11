@@ -298,3 +298,36 @@ export const deleteCourse = async (data, token) => {
   }
   toast.dismiss(toastId);
 };
+
+//Not by me
+export const getFullDetailsOfCourse = async (courseId, token) => {
+  const toastId = toast.loading("Loading...");
+  //   dispatch(setLoading(true));
+  let result = null;
+  try {
+    const response = await apiconnector(
+      "POST",
+      courseEndpoints.GET_FULL_COURSE_DETAILS_AUTHENTICATED,
+      {
+        courseId,
+      },
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+    result = response?.data?.data;
+    console.log(result);
+  } catch (error) {
+    console.log("COURSE_FULL_DETAILS_API API ERROR............", error);
+    result = error.response.data;
+    // toast.error(error.response.data.message);
+  }
+  toast.dismiss(toastId);
+  //   dispatch(setLoading(false));
+  return result;
+};

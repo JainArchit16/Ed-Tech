@@ -4,6 +4,7 @@ const Course = require("../models/Course");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const Section = require("../models/Section");
 const SubSection = require("../models/SubSection");
+const { convertSecondsToDuration } = require("../utils/secToDuration");
 const cloudinary = require("cloudinary").v2;
 
 exports.createCourse = async (req, res) => {
@@ -45,12 +46,14 @@ exports.createCourse = async (req, res) => {
         message: "Instructor Not Found",
       });
     }
+    // console.log(category);
 
-    const tagDetails = await Category.findById(category);
-    if (!tagDetails) {
+    const categoryDetails = await Category.findById({ _id: category });
+    // console.log(categoryDetails);
+    if (!categoryDetails) {
       return res.status(404).json({
         success: false,
-        message: "Tag Not Found",
+        message: "Category Not Found",
       });
     }
 
@@ -65,7 +68,7 @@ exports.createCourse = async (req, res) => {
       instructor: instructorDetails._id,
       whatYouWillLearn: whatYouWillLearn,
       price,
-      Category: tagDetails._id,
+      category: categoryDetails._id,
       tag,
       thumbnail: thumbnailImage.secure_url,
       status: status,
@@ -125,6 +128,17 @@ exports.editCourse = async (req, res) => {
         thumbnail,
         process.env.FOLDER_NAME
       );
+
+      const publicIdImage = course.thumbnail
+        .split("/")
+        .pop()
+        .replace(/\.[^/.]+$/, "");
+
+      cloudinary.uploader.destroy(`images/${publicIdImage}`, {
+        type: "upload",
+        resource_type: "image",
+      });
+
       course.thumbnail = thumbnailImage.secure_url;
     }
 
@@ -291,7 +305,6 @@ exports.deleteCourse = async (req, res) => {
           const subSection = await SubSection.findById({ _id: subSectionId });
           if (subSection && subSection.videoUrl) {
             // Extract public_id from Cloudinary URL
-            console.log("mkc");
             const publicId = subSection.videoUrl
               .split("/")
               .pop()
@@ -333,6 +346,70 @@ exports.deleteCourse = async (req, res) => {
       success: false,
       message: "Server error",
       error: error.message,
+    });
+  }
+};
+
+//Not by me
+//see commented much part of it check
+exports.getFullCourseDetails = async (req, res) => {
+  try {
+    const { courseId } = req.body;
+    const userId = req.user.id;
+    const courseDetails = await Course.findOne({
+      _id: courseId,
+    })
+      .populate({
+        path: "instructor",
+        populate: {
+          path: "additionalDetails",
+        },
+      })
+      .populate("category")
+      .populate("ratingAndReviews")
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+        },
+      })
+      .exec();
+
+    // console.log("hello 1");
+
+    // let courseProgressCount = await CourseProgress.findOne({
+    //   courseID: courseId,
+    //   userId: userId,
+    // });
+
+    // console.log("courseProgressCount : ", courseProgressCount);
+
+    if (!courseDetails) {
+      return res.status(400).json({
+        success: false,
+        message: `Could not find course with id: ${courseId}`,
+      });
+    }
+
+    // let totalDurationInSeconds = 0;
+    // courseDetails.courseContent.forEach((content) => {
+    //   content.subSection.forEach((subSection) => {
+    //     const timeDurationInSeconds = parseInt(subSection.timeDuration);
+    //     totalDurationInSeconds += timeDurationInSeconds;
+    //   });
+    // });
+
+    // const totalDuration = convertSecondsToDuration(totalDurationInSeconds);
+    return res.status(200).json({
+      success: true,
+      data: {
+        courseDetails,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
     });
   }
 };
