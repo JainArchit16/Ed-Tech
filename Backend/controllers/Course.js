@@ -85,20 +85,28 @@ exports.createCourse = async (req, res) => {
       { new: true }
     );
 
-    const updatedTag = await Category.findByIdAndUpdate(
+    const updatedCategory = await Category.findByIdAndUpdate(
       { _id: category },
       {
         $push: {
-          courses: newCourse._id,
+          course: newCourse._id,
         },
       },
       { new: true }
     );
 
+    const updatedCourse = await Course.findOne({
+      _id: newCourse._id,
+    })
+
+      .populate("category")
+
+      .exec();
+
     return res.status(200).json({
       success: true,
       message: "Course added successfully",
-      data: newCourse,
+      data: updatedCourse,
     });
   } catch (err) {
     console.error(err.message);
@@ -147,6 +155,26 @@ exports.editCourse = async (req, res) => {
       if (updates.hasOwnProperty(key)) {
         if (key === "tag" || key === "instructions") {
           course[key] = JSON.parse(updates[key]);
+        } else if (key === "category") {
+          const newCategory = await Category.findById({ _id: updates[key] });
+          if (newCategory) {
+            // Remove the course from the old category
+            if (course.category) {
+              const oldCategory = await Category.findById(course.category);
+              if (oldCategory) {
+                oldCategory.course = oldCategory.course.filter(
+                  (courseId) => courseId.toString() !== course._id.toString()
+                );
+                await oldCategory.save();
+              }
+            }
+
+            // Move the course to the new category
+            newCategory.course.push(courseId);
+            await newCategory.save();
+
+            course.category = newCategory._id;
+          }
         } else {
           course[key] = updates[key];
         }

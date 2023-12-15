@@ -42,3 +42,8 @@ export const courseEndpoints = {
   GET_FULL_COURSE_DETAILS_AUTHENTICATED:
     BASE_URL + "/course/getFullCourseDetails",
 };
+
+// CATALOG PAGE DATA
+export const catalogData = {
+  CATALOGPAGEDATA_API: BASE_URL + "/course/getCategoryPageDetails",
+};

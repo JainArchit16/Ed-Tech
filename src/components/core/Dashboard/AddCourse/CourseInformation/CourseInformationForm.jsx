@@ -119,6 +119,7 @@ const CourseInformationForm = () => {
     formData.append("tag", JSON.stringify(data.courseTags));
     formData.append("whatYouWillLearn", data.courseBenefits);
     formData.append("category", data.courseCategory);
+    // console.log("datawali" + data.courseCategory);
     formData.append("status", COURSE_STATUS.DRAFT);
     formData.append("instructions", JSON.stringify(data.courseRequirements));
     formData.append("thumbnailImage", data.courseImage);
@@ -141,7 +142,10 @@ const CourseInformationForm = () => {
       setValue("courseTags", course.tag);
       // console.log(JSON.parse(course.tag));
       setValue("courseBenefits", course.whatYouWillLearn);
-      setValue("courseCategory", course.category);
+      setValue("courseCategory", course.category._id);
+      {
+        console.log(course.category);
+      }
       setValue("courseRequirements", course.instructions);
       setValue("courseImage", course.thumbnail);
     }
@@ -232,7 +236,13 @@ const CourseInformationForm = () => {
 
               {!loading &&
                 courseCategories?.map((category, indx) => (
-                  <option key={indx} value={category?._id}>
+                  <option
+                    key={indx}
+                    value={category?._id}
+                    selected={
+                      editCourse && category?._id === course.category._id
+                    }
+                  >
                     {category?.name}
                   </option>
                 ))}

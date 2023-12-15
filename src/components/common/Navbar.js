@@ -66,7 +66,10 @@ const Navbar = () => {
                   {subLinks.length ? (
                     subLinks.map((element, index) => (
                       <Link
-                        to={`${subLinks.link}`}
+                        to={`catalog/${element
+                          .split(" ")
+                          .join("-")
+                          .toLowerCase()}`}
                         key={index}
                         className="hover:bg-richblack-50"
                       >
