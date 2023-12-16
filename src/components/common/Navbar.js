@@ -98,7 +98,7 @@ const Navbar = () => {
         </ul>
         <div className="flex flex-row gap-4 text-white items-center">
           {user && user?.accountType !== "Instructor" && (
-            <Link to="/dashboard/cart" className="relative">
+            <Link to="/dashboard/cart" className="relative flex flex-row">
               <AiOutlineShoppingCart className="text-2xl mr-3" />
               {totalItems > 0 && <span>{totalItems}</span>}
             </Link>

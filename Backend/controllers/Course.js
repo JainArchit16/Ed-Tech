@@ -237,40 +237,57 @@ exports.getAllCourses = async (req, res) => {
   }
 };
 
+//Not by me
 exports.getCourseDetails = async (req, res) => {
   try {
+    //get id
     const { courseId } = req.body;
-    const courseDetails = await Course.find({ _id: courseId })
-      .populate({ path: "instructor", populate: { path: "additionalDetails" } })
-      .populate("category")
+    //find course details
+    const courseDetails = await Course.findById(courseId)
       .populate({
-        //only populate user name and image
-        path: "ratingAndReviews",
+        path: "instructor",
         populate: {
-          path: "user",
-          select: "firstName lastName accountType image",
+          path: "additionalDetails",
         },
       })
-      .populate({ path: "courseContent", populate: { path: "subSection" } })
+      .populate("category")
+      .populate("ratingAndReviews")
+      .populate({
+        path: "courseContent",
+        populate: {
+          path: "subSection",
+        },
+      })
       .exec();
 
+    //validation
     if (!courseDetails) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
-        message: "Course Not Found",
+        message: `Could not find the course with ${courseId}`,
       });
     }
+
+    let totalDurationInSeconds = 0;
+    courseDetails.courseContent.forEach((content) => {
+      content.subSection.forEach((subSection) => {
+        const timeDurationInSeconds = parseInt(subSection.timeDuration);
+        totalDurationInSeconds += timeDurationInSeconds;
+      });
+    });
+
+    const totalDuration = convertSecondsToDuration(totalDurationInSeconds);
+    //return response
     return res.status(200).json({
       success: true,
-      message: "Course fetched successfully now",
-      data: courseDetails,
+      message: "Course Details fetched successfully",
+      data: { courseDetails, totalDuration },
     });
   } catch (error) {
     console.log(error);
-    return res.status(404).json({
+    return res.status(500).json({
       success: false,
-      message: `Can't Fetch Course Data`,
-      error: error.message,
+      message: error.message,
     });
   }
 };
@@ -419,19 +436,20 @@ exports.getFullCourseDetails = async (req, res) => {
       });
     }
 
-    // let totalDurationInSeconds = 0;
-    // courseDetails.courseContent.forEach((content) => {
-    //   content.subSection.forEach((subSection) => {
-    //     const timeDurationInSeconds = parseInt(subSection.timeDuration);
-    //     totalDurationInSeconds += timeDurationInSeconds;
-    //   });
-    // });
+    let totalDurationInSeconds = 0;
+    courseDetails.courseContent.forEach((content) => {
+      content.subSection.forEach((subSection) => {
+        const timeDurationInSeconds = parseInt(subSection.timeDuration);
+        totalDurationInSeconds += timeDurationInSeconds;
+      });
+    });
 
-    // const totalDuration = convertSecondsToDuration(totalDurationInSeconds);
+    const totalDuration = convertSecondsToDuration(totalDurationInSeconds);
     return res.status(200).json({
       success: true,
       data: {
         courseDetails,
+        totalDuration,
       },
     });
   } catch (error) {

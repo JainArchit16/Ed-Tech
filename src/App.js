@@ -23,9 +23,11 @@ import AddCourse from "./components/core/Dashboard/AddCourse";
 import MyCourses from "./components/core/Dashboard/MyCourses";
 import EditCourse from "./components/core/Dashboard/EditCourse";
 import Catalog from "./pages/Catalog";
+import CourseDetails from "./pages/CourseDetails";
 
 function App() {
   const { user } = useSelector((state) => state.profile);
+
   return (
     <div className="w-screen h-fit flex flex-col bg-richblack-900 font-inter">
       <Navbar></Navbar>
@@ -40,6 +42,7 @@ function App() {
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/logout" element={<Logout />}></Route>
         <Route path="/catalog/:catalogName" element={<Catalog />}></Route>
+        <Route path="/courses/:courseId" element={<CourseDetails />}></Route>
 
         <Route
           path="/dashboard"
