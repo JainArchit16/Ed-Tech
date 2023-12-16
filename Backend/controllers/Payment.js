@@ -182,7 +182,13 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
     await mailSender(
       user.email,
       `Payment Received`,
-      paymentSuccess(amount / 100, paymentId, orderId, `${user.firstName}`)
+      paymentSuccess(
+        amount / 100,
+        paymentId,
+        orderId,
+        `${user.firstName}`,
+        `${user.lastName}`
+      )
     );
   } catch (error) {
     console.log("error in sending mail", error);

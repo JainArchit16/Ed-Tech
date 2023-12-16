@@ -5,6 +5,7 @@ const { uploadImageToCloudinary } = require("../utils/imageUploader");
 const Section = require("../models/Section");
 const SubSection = require("../models/SubSection");
 const { convertSecondsToDuration } = require("../utils/secToDuration");
+const CourseProgress = require("../models/CourseProgress");
 const cloudinary = require("cloudinary").v2;
 
 exports.createCourse = async (req, res) => {
@@ -422,12 +423,12 @@ exports.getFullCourseDetails = async (req, res) => {
 
     // console.log("hello 1");
 
-    // let courseProgressCount = await CourseProgress.findOne({
-    //   courseID: courseId,
-    //   userId: userId,
-    // });
+    let courseProgressCount = await CourseProgress.findOne({
+      courseID: courseId,
+      userId: userId,
+    });
 
-    // console.log("courseProgressCount : ", courseProgressCount);
+    console.log("courseProgressCount : ", courseProgressCount);
 
     if (!courseDetails) {
       return res.status(400).json({
@@ -450,6 +451,9 @@ exports.getFullCourseDetails = async (req, res) => {
       data: {
         courseDetails,
         totalDuration,
+        completedVideos: courseProgressCount?.completedVideos
+          ? courseProgressCount?.completedVideos
+          : [],
       },
     });
   } catch (error) {

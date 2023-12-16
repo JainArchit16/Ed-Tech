@@ -360,3 +360,63 @@ export const fetchCourseDetails = async (courseId) => {
   //   dispatch(setLoading(false));
   return result;
 };
+
+export const createRating = async (data, token) => {
+  let success = false;
+  const toastId = toast.loading("Loading...");
+  try {
+    const response = await apiconnector(
+      "POST",
+      courseEndpoints.CREATE_RATING_API,
+      data,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    console.log("CREATE RATING API RESPONSE............", response);
+    if (!response?.data?.success) {
+      throw new Error("Could Not Create Rating");
+    }
+    success = true;
+    toast.success("Course Rating Created");
+  } catch (error) {
+    console.log("CREATE Rating API ERROR............", error);
+    toast.error(error.message);
+  }
+  toast.dismiss(toastId);
+  return success;
+};
+
+//Not by me
+// mark a lecture as complete
+export const markLectureAsComplete = async (data, token) => {
+  let result = null;
+  console.log("Mark Complete Data", data);
+  const toastId = toast.loading("Loading...");
+  try {
+    const response = await apiconnector(
+      "POST",
+      courseEndpoints.LECTURE_COMPLETION_API,
+      data,
+      {
+        Authorization: `Bearer ${token}`,
+      }
+    );
+    console.log(
+      "MARK_LECTURE_AS_COMPLETE_API API RESPONSE............",
+      response
+    );
+
+    if (!response.data.message) {
+      throw new Error(response.data.error);
+    }
+    toast.success("Lecture Completed");
+    result = true;
+  } catch (error) {
+    console.log("MARK_LECTURE_AS_COMPLETE_API API ERROR............", error);
+    toast.error(error.message);
+    result = false;
+  }
+  toast.dismiss(toastId);
+  return result;
+};

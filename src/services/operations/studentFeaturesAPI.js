@@ -71,7 +71,7 @@ export const buyCourse = async (
       description: "Thank You for Purchasing the Course",
       image: rzpLogo,
       prefill: {
-        name: `${userDetails.firstName}`,
+        name: `${userDetails.firstName} ${userDetails.lastName}`,
         email: userDetails.email,
       },
       handler: (response) => {

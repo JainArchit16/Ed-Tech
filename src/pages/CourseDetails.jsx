@@ -16,6 +16,7 @@ import { MdOutlineArrowForwardIos } from "react-icons/md";
 import CourseDetailsCard from "../components/core/Course/CourseDetailsCard";
 import { toast } from "react-hot-toast";
 import Footer from "../components/common/Footer.js";
+import Loader from "../components/common/Loader.jsx";
 
 const CourseDetails = () => {
   const { token } = useSelector((state) => state.auth);
@@ -89,8 +90,8 @@ const CourseDetails = () => {
 
   if (loading || !courseData) {
     return (
-      <div className="min-h-[91.6vh] flex flex-row items-center justify-center w-full text-3xl font-semibold">
-        Loading...
+      <div className="min-h-[91.6vh] flex flex-row items-center justify-center w-full text-3xl font-semibold text-richblack-5">
+        <Loader />
       </div>
     );
   }

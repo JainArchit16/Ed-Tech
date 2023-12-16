@@ -1,26 +1,25 @@
-import loginImg from "../assets/Images/login.webp"
-import Template from "../components/core/Auth/Template"
-import { login } from "../services/operations/authAPI"
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
-import { TbCornerDownRightDouble } from "react-icons/tb"
-import { BsLightningChargeFill } from "react-icons/bs"
-import Loader from "../components/common/Loader"
+import loginImg from "../assets/Images/login.webp";
+import Template from "../components/core/Auth/Template";
+import { login } from "../services/operations/authAPI";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { TbCornerDownRightDouble } from "react-icons/tb";
+import { BsLightningChargeFill } from "react-icons/bs";
+import Loader from "../components/common/Loader";
 import { useSelector } from "react-redux";
-
 
 //Not by me
 
 function Login() {
-  const [showDemo, setShowDemo] = useState(true)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const {Loading} = useSelector((state)=>state.auth);
+  const [showDemo, setShowDemo] = useState(true);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { Loading } = useSelector((state) => state.auth);
   return (
     <>
-    {/* test login ID */}
-    {/* <div  className={`${showDemo ? "":"hidden"} justify-center items-center absolute bg-richblack-400 top-52 md:top-32 md:right-[50%] right-[10%] p-6 -rotate-[20deg] z-20 `}>
+      {/* test login ID */}
+      {/* <div  className={`${showDemo ? "":"hidden"} justify-center items-center absolute bg-richblack-400 top-52 md:top-32 md:right-[50%] right-[10%] p-6 -rotate-[20deg] z-20 `}>
       <div className="flex flex-col gap-2 relative">
         <div onClick={()=>{setShowDemo(false)}} className="absolute top-[-30px] right-[-20px] text-5xl text-richblack-900 rounded-full w-[40px] h-[40px] flex justify-center items-center cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="20" height="20">
@@ -52,22 +51,19 @@ function Login() {
         </div>
       </div>
     </div> */}
-    {
-        Loading?(
-            <Loader/>
-        ):(
-
-            <Template
-            title="Welcome Back"
-            description1="Build skills for today, tomorrow, and beyond."
-            description2="Education to future-proof your career."
-            image={loginImg}
-            formType="login"
-            />
-        )
-    }
+      {Loading ? (
+        <Loader />
+      ) : (
+        <Template
+          title="Welcome Back"
+          description1="Build skills for today, tomorrow, and beyond."
+          description2="Education to future-proof your career."
+          image={loginImg}
+          formType="login"
+        />
+      )}
     </>
-  )
+  );
 }
 
-export default Login
+export default Login;
