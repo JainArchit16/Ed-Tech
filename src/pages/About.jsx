@@ -8,6 +8,7 @@ import Stats from "../components/core/AboutPage/Stats";
 import LearningGrid from "../components/core/AboutPage/LearningGrid";
 import ContactFormSection from "../components/core/AboutPage/ContactFormSection";
 import Footer from "../../src/components/common/Footer";
+import ReviewSlider from "../components/common/ReviewSlider";
 const About = () => {
   return (
     <div className="bg-richblack-900 flex flex-col h-[100%]">
@@ -109,6 +110,10 @@ const About = () => {
 
       <LearningGrid />
       <ContactFormSection />
+      <h2 className="text-center text-4xl font-semobold mt-10 text-richblack-5">
+        Review From Other Learners
+      </h2>
+      <ReviewSlider />
       <Footer />
     </div>
   );

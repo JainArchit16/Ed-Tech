@@ -110,13 +110,11 @@ exports.deleteAccount = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "User Cannot be deleted successfully",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "User Cannot be deleted successfully",
+      error: error.message,
+    });
   }
 };
 
@@ -209,13 +207,11 @@ exports.getUserDetails = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "User Cannot be Fetched",
-        error: error.message,
-      });
+    res.status(500).json({
+      success: false,
+      message: "User Cannot be Fetched",
+      error: error.message,
+    });
   }
 };
 
@@ -262,31 +258,29 @@ exports.updateDisplayPicture = async (req, res) => {
   }
 };
 
+//Not by me
 exports.instructorDashboard = async (req, res) => {
   try {
-    const id = req.user.id;
-    const courseData = await Course.find({ instructor: id });
-    const courseDetails = courseData.map((course) => {
-      totalStudents = course?.studentsEnrolled?.length;
-      totalRevenue = course?.price * totalStudents;
-      const courseStats = {
+    const courseDetails = await Course.find({ instructor: req.user.id });
+
+    const courseData = courseDetails.map((course) => {
+      const totalStudentsEnrolled = course.studentsEnrolled.length;
+      const totalAmountGenerated = totalStudentsEnrolled * course.price;
+
+      //create an new object with the additional fields
+      const courseDataWithStats = {
         _id: course._id,
         courseName: course.courseName,
         courseDescription: course.courseDescription,
-        totalStudents,
-        totalRevenue,
+        totalStudentsEnrolled,
+        totalAmountGenerated,
       };
-      return courseStats;
+      return courseDataWithStats;
     });
-    res.status(200).json({
-      success: true,
-      message: "User Data fetched successfully",
-      data: courseDetails,
-    });
+
+    res.status(200).json({ courses: courseData });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

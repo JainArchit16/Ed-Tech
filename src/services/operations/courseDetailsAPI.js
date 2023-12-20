@@ -374,11 +374,14 @@ export const createRating = async (data, token) => {
       }
     );
     console.log("CREATE RATING API RESPONSE............", response);
-    if (!response?.data?.success) {
+    if (response?.data?.message === "Review Already Registered") {
+      toast.error(response?.data?.message);
+    } else if (!response?.data?.success) {
       throw new Error("Could Not Create Rating");
+    } else {
+      success = true;
+      toast.success(response?.data?.message);
     }
-    success = true;
-    toast.success("Course Rating Created");
   } catch (error) {
     console.log("CREATE Rating API ERROR............", error);
     toast.error(error.message);

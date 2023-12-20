@@ -40,7 +40,7 @@ exports.createRating = async (req, res) => {
       course: courseId,
     });
     if (oldRating) {
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "Review Already Registered",
       });
@@ -64,12 +64,12 @@ exports.createRating = async (req, res) => {
     );
     res.status(200).json({
       success: true,
-      message: "Rating added successfully",
+      message: "Rating Added Successfully",
       newRating,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -123,7 +123,7 @@ exports.getAllRating = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: "all reviews fetched successfully",
+      message: "All Reviews Fetched Successfully",
       data: allReviews,
     });
   } catch (error) {
