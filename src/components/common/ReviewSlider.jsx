@@ -3,20 +3,18 @@ import ReactStars from "react-rating-stars-component";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
-//Not by me full
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import "../../App.css";
 
 // Icons
 import { FaStar } from "react-icons/fa";
 
 // Import required modules
-import { Autoplay, FreeMode, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, FreeMode, Pagination } from "swiper/modules";
 
 // Get apiFunction and the endpoint
 import { apiconnector } from "../../services/apiconnector";
@@ -38,27 +36,39 @@ function ReviewSlider() {
     })();
   }, []);
 
-  // console.log(reviews)
-
   return (
-    <div className="text-white w-[80%] mx-auto">
+    <div className="text-white w-[90%] lg:w-[80%] mx-auto">
       <div className="my-[50px] h-[184px] max-w-maxContentTab lg:max-w-maxContent">
         <Swiper
-          slidesPerView={4}
-          spaceBetween={25}
+          // slidesPerView={1}
+          spaceBetween={10}
           loop={true}
           freeMode={true}
           autoplay={{
             delay: 1500,
             disableOnInteraction: false,
           }}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 25,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 25,
+            },
+          }}
           modules={[FreeMode, Pagination, Autoplay]}
-          className="w-full "
+          className="w-full"
         >
           {reviews.map((review, i) => {
             return (
               <SwiperSlide key={i}>
-                <div className=" flex flex-col gap-3 bg-richblack-800 p-3 text-[17px] text-richblack-25">
+                <div className="flex flex-col gap-3 bg-richblack-800 p-3 text-[17px] text-richblack-25 rounded-lg">
                   <div className="flex items-center gap-4">
                     <img
                       src={
@@ -84,7 +94,7 @@ function ReviewSlider() {
                           .join(" ")} ...`
                       : `${review?.review}`}
                   </p>
-                  <div className="flex items-center gap-2 ">
+                  <div className="flex items-center gap-2">
                     <h3 className="font-semibold text-yellow-100">
                       {review.rating.toFixed(1)}
                     </h3>
@@ -102,7 +112,6 @@ function ReviewSlider() {
               </SwiperSlide>
             );
           })}
-          {/* <SwiperSlide>Slide 1</SwiperSlide> */}
         </Swiper>
       </div>
     </div>

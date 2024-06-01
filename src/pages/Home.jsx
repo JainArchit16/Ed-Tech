@@ -149,7 +149,7 @@ const Home = () => {
       </div>
       <BecomeInstructor />
 
-      <h2 className="text-center text-4xl font-semobold mt-10 text-richblack-5">
+      <h2 className="text-center text-xl md:text-4xl font-semobold mt-10 text-richblack-5">
         Review From Other Learners
       </h2>
       <ReviewSlider />
