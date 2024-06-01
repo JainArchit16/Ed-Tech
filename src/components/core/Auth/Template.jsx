@@ -1,16 +1,13 @@
-import { FcGoogle } from "react-icons/fc"
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 
-import frameImg from "../../../assets/Images/frame.png"
-import LoginForm from "./LoginForm"
-import SignupForm from "./SignupForm"
-
+import frameImg from "../../../assets/Images/frame.png";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 
 // Not by me
 
-
 function Template({ title, description1, description2, image, formType }) {
-  const { loading } = useSelector((state) => state.auth)
+  const { loading } = useSelector((state) => state.auth);
 
   return (
     <div className="grid min-h-[calc(100vh-3.5rem)] place-items-center">
@@ -30,7 +27,7 @@ function Template({ title, description1, description2, image, formType }) {
             </p>
             {formType === "signup" ? <SignupForm /> : <LoginForm />}
           </div>
-          <div className="relative mx-auto w-11/12 max-w-[450px] md:mx-0">
+          <div className="relative mx-auto w-11/12 max-w-[450px] md:mx-0 hidden md:block">
             <img
               src={frameImg}
               alt="Pattern"
@@ -50,7 +47,7 @@ function Template({ title, description1, description2, image, formType }) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
-export default Template
+export default Template;
