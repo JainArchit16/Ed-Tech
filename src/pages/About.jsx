@@ -11,10 +11,10 @@ import Footer from "../../src/components/common/Footer";
 import ReviewSlider from "../components/common/ReviewSlider";
 const About = () => {
   return (
-    <div className="bg-richblack-900 flex flex-col h-[100%]">
+    <div className="bg-richblack-900 flex flex-col h-[100]">
       <div className="bg-[#161D29] flex flex-col w-full h-[50%] items-center relative">
         <div className="flex flex-col w-[70%] justify-center items-center my-24">
-          <p className="text-richblack-5 text-4xl font-semibold font-inter w-[70%] text-center mb-10">
+          <p className="text-richblack-5 md:text-4xl font-semibold font-inter lg:w-[70%] text-center mb-10 text-3xl">
             Driving Innovation in Online Education for a
             <HighlightText text={" Brighter Future"} />
           </p>
@@ -24,7 +24,7 @@ const About = () => {
             offering cutting-edge courses, leveraging emerging technologies, and
             nurturing a vibrant learning community.
           </p>
-          <div className="flex flex-row justify-center items-center gap-8 absolute translate-y-[85%]">
+          <div className="lg:flex md:flex-row justify-center items-center gap-8 absolute translate-y-[85%] hidden">
             <img src={image1} alt="xyz" />
             <img src={image2} alt="xyz" />
             <img src={image3} alt="xyz" />
@@ -32,14 +32,14 @@ const About = () => {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center mt-52 border-b-[1px] border-richblack-500">
-        <div className="text-white text-4xl font-inter text-semibold text-center my-10 w-[75%]">
+        <div className="text-white md:text-4xl font-inter text-semibold text-center my-10 w-[75%] text-2xl">
           We are passionate about revolutionizing the way we learn. Our
           innovative platform <HighlightText text={"combines technology"} />,
           <HighlightText text={" expertise"} />, and community to create an
           unparalleled educational experience.
         </div>
       </div>
-      <div className="flex flex-row justify-center items-center w-full gap-40 my-20">
+      <div className="flex flex-col lg:flex-row justify-center items-center w-full lg:gap-40 my-20 md:p-6 gap-10">
         <div className="w-[40%] text-white flex flex-col gap-4">
           <h1 class="text-4xl font-semibold font-inter relative">
             <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCB045]">
@@ -72,10 +72,10 @@ const About = () => {
         </div>
       </div>
 
-      <div className="flex flex-row justify-center items-center w-full gap-80 my-40">
-        <div className="w-[30%] flex flex-col gap-8">
-          <h1 class="text-4xl font-semibold font-inter relative">
-            <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#E65C00] to-[#F9D423]">
+      <div className="flex md:flex-row justify-center items-center w-full lg:gap-80 gap-32 lg:my-40 my-10 flex-col">
+        <div className="w-[70%] md:w-[30%] flex flex-col gap-8">
+          <h1 className="text-4xl font-semibold font-inter relative">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#E65C00] to-[#F9D423]">
               Our Vision
             </span>
           </h1>
@@ -89,9 +89,9 @@ const About = () => {
             experience.
           </p>
         </div>
-        <div className="w-[30%] flex flex-col gap-8">
-          <h1 class="text-4xl font-semibold font-inter relative">
-            <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB]">
+        <div className="w-[70%] md:w-[30%] flex flex-col gap-8">
+          <h1 className="text-4xl font-semibold font-inter relative">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB]">
               Our Mission
             </span>
           </h1>
