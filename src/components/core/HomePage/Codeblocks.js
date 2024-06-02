@@ -15,12 +15,12 @@ const Codeblocks = ({
 }) => {
   return (
     <div
-      className={`flex ${position} gap-10 my-16 mb-20 justify-between flex-col md:flex-row`}
+      className={`flex ${position} gap-10 my-16 mb-20 justify-between flex-col lg:flex-row`}
     >
-      <div className="flex flex-col w-[40%] gap-6">
+      <div className="flex flex-col lg:w-[40%] gap-6 w-[95%] text-center lg:text-left">
         {heading}
         <div className="text-richblack-300 font-bold">{subHeading}</div>
-        <div className="flex flex-row mt-8 gap-8">
+        <div className="flex flex-row mt-8 gap-8 lg:items-center justify-center">
           <CTAbutton active={ctabtn1.active} linkto={ctabtn1.linkto}>
             <div className="flex flex-row items-center">
               {ctabtn1.btnText}
@@ -33,8 +33,8 @@ const Codeblocks = ({
         </div>
       </div>
 
-      <div className="w-[40%] flex flex-row bg-gradient-to-b from-[#0E1A2D3D] to-[#111E3261] relative gap-4">
-        <div className="text-center font-semibold text-richblack-400 w-[10%] font-inter flex flex-col">
+      <div className="lg:w-[40%] md:flex flex-row bg-gradient-to-b from-[#0E1A2D3D] to-[#111E3261] relative gap-4 hidden">
+        <div className="text-center font-semibold text-richblack-400 lg:w-[10%] font-inter flex flex-col">
           <p>1</p>
           <p>2</p>
           <p>3</p>

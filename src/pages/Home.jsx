@@ -25,7 +25,7 @@ const Home = () => {
           </div>
         </Link>
 
-        <div className="font-semibold text-4xl mt-7">
+        <div className="font-semibold text-4xl mt-7 text-center">
           Empower Your Future With{" "}
           <HighlightText text={"Coding Skills"}></HighlightText>
         </div>
@@ -53,6 +53,7 @@ const Home = () => {
             <source src={videoUrl} type="video/mp4"></source>
           </video>
         </div>
+
         <div className="mx-32">
           <Codeblocks
             position={"flex-row"}
@@ -102,7 +103,7 @@ const Home = () => {
               active: true,
             }}
             ctabtn2={{
-              btnText: "learn more",
+              btnText: "Learn More",
               linkto: "/login",
               active: false,
             }}
@@ -110,12 +111,12 @@ const Home = () => {
             codeColor={"text-white-25"}
           />
         </div>
-        <div className="mx-auto flex flex-col justify-between items-center relative w-full h-[30rem]">
+
+        <div className="mx-auto flex flex-col justify-between items-center lg:relative w-full">
           <ExploreMore />
         </div>
       </div>
-
-      <div className="w-full bg-pure-greys-5 text-richblack-700">
+      <div className="w-full bg-pure-greys-5 text-richblack-700 sm:-translate-y-12">
         <div className="homepage_bg h-[310px]">
           <div className="w-11/12 flex flex-col justify-between items-center gap-4 mx-auto">
             <div className="flex flex-row w-11/12 gap-4 justify-center mt-32">
@@ -130,12 +131,12 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="w-11/12 flex flex-row gap-12 justify-center mx-auto p-12 my-6">
-          <div className="w-[40%] text-2xl">
+        <div className="w-11/12 flex flex-col md:flex-row gap-12 justify-center mx-auto p-12 my-6">
+          <div className="md:w-[40%] text-2xl">
             Get the skills you need for a{" "}
             <HighlightText text={"job that is in demand."} />
           </div>
-          <div className="w-[40%] flex flex-col gap-10 text-lg">
+          <div className="md:w-[40%] flex flex-col gap-10 text-lg">
             The modern StudyNotion is the dictates its own terms. Today, to be a
             competitive specialist requires more than professional skills.
             <CTAButton active={true} linkto={"/signup"}>

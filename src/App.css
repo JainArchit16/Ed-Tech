@@ -56,3 +56,9 @@
   font-weight: 600;
   padding: 8px 20px;
 }
+
+@media (min-width: 1000px) and (max-width: 1396px) {
+  .jolly {
+    display: none;
+  }
+}
