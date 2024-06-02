@@ -21,13 +21,13 @@ const Community = ["Forums", "Chapters", "Events"];
 const Footer = () => {
   return (
     <div className="w-full bg-[#161D29] flex flex-col justify-center items-center p-8">
-      <div className="w-full flex flex-col md:flex-row gap-10 md:gap-20 p-5 md:p-20 justify-center items-center md:items-start">
-        <div className="flex flex-col gap-3 items-center md:items-start">
-          <img src={Logo} alt="Logo" className="w-32 md:w-48" />
+      <div className="w-full flex flex-col lg:flex-row gap-10 lg:gap-20 p-5 lg:p-20 justify-center items-center lg:items-start">
+        <div className="flex flex-col gap-3 items-center lg:items-start">
+          <img src={Logo} alt="Logo" className="w-32 lg:w-48" />
           <p className="font-semibold font-inter text-[#AFB2BF] my-1">
             Company
           </p>
-          <div className="text-[#6E727F] font-inter flex flex-col items-center md:items-start">
+          <div className="text-[#6E727F] font-inter flex flex-col items-center lg:items-start">
             {["About", "Career", "Affiliates"].map((element, index) => (
               <Link key={index} to={element.split(" ").join("-").toLowerCase()}>
                 <p className="my-1 hover:text-richblack-50 transition-all duration-200 cursor-pointer">
@@ -44,11 +44,11 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center md:items-start">
+        <div className="flex flex-col items-center lg:items-start">
           <p className="font-semibold font-inter text-[#AFB2BF] my-3">
             Resources
           </p>
-          <div className="text-[#424854] font-inter flex flex-col items-center md:items-start">
+          <div className="text-[#424854] font-inter flex flex-col items-center lg:items-start">
             {Resources.map((element, index) => (
               <Link key={index} to={element.split(" ").join("-").toLowerCase()}>
                 <p className="my-1 text-[#6E727F] hover:text-richblack-50 transition-all duration-200 cursor-pointer">
@@ -67,9 +67,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-center md:items-start">
+        <div className="flex flex-col items-center lg:items-start">
           <p className="font-semibold font-inter text-[#AFB2BF] my-3">Plans</p>
-          <div className="text-[#424854] font-inter flex flex-col items-center md:items-start">
+          <div className="text-[#424854] font-inter flex flex-col items-center lg:items-start">
             {Plans.map((element, index) => (
               <Link key={index} to={element.split(" ").join("-").toLowerCase()}>
                 <p className="my-1 text-[#6E727F] hover:text-richblack-50 transition-all duration-200 cursor-pointer">
@@ -82,7 +82,7 @@ const Footer = () => {
           <p className="font-semibold font-inter text-[#AFB2BF] my-3">
             Community
           </p>
-          <div className="text-[#424854] font-inter flex flex-col items-center md:items-start">
+          <div className="text-[#424854] font-inter flex flex-col items-center lg:items-start">
             {Community.map((element, index) => (
               <Link key={index} to={element.split(" ").join("-").toLowerCase()}>
                 <p className="my-1 text-[#6E727F] hover:text-richblack-50 transition-all duration-200 cursor-pointer">
@@ -93,17 +93,17 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="hidden md:block w-[2px] bg-[#2C333F] h-full"></div>
+        <div className="hidden lg:block w-[2px] bg-[#2C333F] h-full"></div>
 
         {FooterLink2.map((element, index) => (
           <div
             key={index}
-            className="flex flex-col items-center md:items-start"
+            className="flex flex-col items-center lg:items-start"
           >
             <p className="font-semibold font-inter text-[#AFB2BF] my-3">
               {element.title}
             </p>
-            <div className="text-[#424854] font-inter flex flex-col items-center md:items-start">
+            <div className="text-[#424854] font-inter flex flex-col items-center lg:items-start">
               {element.links.map((element1, idx) => (
                 <Link key={idx} to={element1.link}>
                   <p className="my-1 text-[#6E727F] hover:text-richblack-50 transition-all duration-200">
@@ -118,8 +118,8 @@ const Footer = () => {
 
       <div className="bg-[#2C333F] w-full h-[1px]"></div>
 
-      <div className="flex flex-col md:flex-row my-4 justify-between items-center w-full md:w-[80%]">
-        <div className="flex flex-col md:flex-row gap-4 text-center md:text-left">
+      <div className="flex flex-col lg:flex-row my-4 justify-between items-center w-full lg:w-[80%]">
+        <div className="flex flex-col lg:flex-row gap-4 text-center lg:text-left">
           {BottomFooter.map((element, index) => (
             <Link key={index} to={element.split(" ").join("-").toLowerCase()}>
               <p className="text-[#6E727F] hover:text-richblack-50 transition-all duration-200">
@@ -128,7 +128,7 @@ const Footer = () => {
             </Link>
           ))}
         </div>
-        <p className="text-[#6E727F] mt-4 md:mt-0">
+        <p className="text-[#6E727F] mt-4 lg:mt-0">
           Made with ♥ © 2023 Studynotion
         </p>
       </div>
