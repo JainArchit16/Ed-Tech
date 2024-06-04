@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { apiconnector } from "../services/apiconnector";
 import { categories } from "../services/apis";
 import { getCatalogAndPageData } from "../services/operations/pageAndComponent";
-import Course_Card from "../components/core/Catalog/Course_Card";
+import Course_Card from "../components/core/Catalog/CourseCard";
 import CourseSlider from "../components/core/Catalog/CourseSlider";
 import { useSelector } from "react-redux";
 import Error from "./Errorpage";

@@ -10,7 +10,7 @@ import { resetPassword } from "../services/operations/authAPI";
 import toast from "react-hot-toast";
 
 const UpdatePassword = () => {
-  const { Loading, setLoading } = useSelector((state) => state.auth);
+  const { Loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [showPassword, setShowPass] = useState(false);
   const [showConfirmPassword, setShowConfirmPass] = useState(false);

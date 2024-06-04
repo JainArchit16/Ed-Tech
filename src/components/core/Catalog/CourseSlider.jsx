@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 
 import { Autoplay, FreeMode, Navigation, Pagination } from "swiper/modules";
 
-import Course_Card from "./Course_Card";
+import Course_Card from "./CourseCard";
 
 const CourseSlider = ({ Courses }) => {
   return (

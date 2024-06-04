@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { buyCourse } from "../services/operations/studentFeaturesAPI.js";
 import { fetchCourseDetails } from "../services/operations/courseDetailsAPI";
-import { setCourse } from "../slices/courseSlice";
+
 import GetAvgRating from "../utils/avgRating";
 import Error from "./Errorpage";
 import ConfirmationModal from "../components/common/ConfirmationModal";
@@ -22,7 +22,7 @@ const CourseDetails = () => {
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.profile);
   const { loading } = useSelector((state) => state.profile);
-  const { cart } = useSelector((state) => state.cart);
+
   const { courseId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ const CourseDetails = () => {
     setIsActive(
       !isActive.includes(id)
         ? isActive.concat(id)
-        : isActive.filter((e) => e != id)
+        : isActive.filter((e) => e !== id)
     );
   };
 
@@ -105,7 +105,6 @@ const CourseDetails = () => {
   }
 
   const {
-    _id: course_id,
     courseName,
     description,
     thumbnail,
@@ -125,7 +124,7 @@ const CourseDetails = () => {
           <div className="mx-auto grid min-h-[350px] max-w-maxContentTab justify-items-center py-8 lg:mx-0 lg:justify-items-start lg:py-0 xl:max-w-[810px]">
             <div className="relative block max-h-[30rem] lg:hidden">
               <div className="absolute bottom-0 left-0 h-full w-full shadow-[#161D29_0px_-64px_36px_-28px_inset]"></div>
-              <img src={thumbnail} className="aspect-auto w-full" />
+              <img alt=" " src={thumbnail} className="aspect-auto w-full" />
             </div>
 
             <div className="z-30 my-5 flex flex-col justify-center gap-3 py-2 text-md text-richblack-5">
@@ -267,6 +266,7 @@ const CourseDetails = () => {
               <p className="text-[28px] font-semibold">Author</p>
               <div className=" flex items-center gap-4 py-4">
                 <img
+                  alt=" "
                   className="h-14 w-14 rounded-full object-cover"
                   src={instructor.image}
                 />
