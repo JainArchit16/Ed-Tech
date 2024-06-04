@@ -46,6 +46,7 @@ const EnrolledCourses = () => {
             </div>
             {enrolledCourses.map((elem, index) => (
               <Link
+                key={index}
                 to={`/view-course/${elem?._id}/section/${elem.courseContent?.[0]?._id}/sub-section/${elem.courseContent?.[0]?.subSection?.[0]?._id}`}
               >
                 <div

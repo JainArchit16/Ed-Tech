@@ -38,11 +38,11 @@ const UpdatePassword = () => {
     dispatch(resetPassword(password, confirmPassword, token));
   };
   return (
-    <div className="flex flex-col justify-center items-center w-screen min-h-[91.6vh] text-white">
+    <div className="flex flex-col justify-center items-center w-screen min-h-screen text-white">
       {Loading ? (
         <Loader></Loader>
       ) : (
-        <div className="flex flex-col justify-between w-[30%] text-white gap-4">
+        <div className="flex flex-col justify-between w-[80%] lg:w-[30%] text-white gap-4">
           <h1 className="text-3xl font-semibold font-inter">
             Choose New Password
           </h1>

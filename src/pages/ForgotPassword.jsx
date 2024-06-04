@@ -20,11 +20,11 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-[91.7vh] text-white w-full mx-auto ">
+    <div className="flex flex-col justify-center items-center min-h-screen lg:min-h-[91.7vh] text-white w-full mx-auto ">
       {Loading ? (
         <Loader />
       ) : (
-        <div className="flex flex-col justify-between w-[30%] gap-4">
+        <div className="flex flex-col justify-between w-[80%] lg:w-[30%] gap-4">
           {emailSent ? (
             <div className="text-3xl font-semibold font-inter">
               Check Your Email
