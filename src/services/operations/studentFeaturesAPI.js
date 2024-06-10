@@ -60,7 +60,7 @@ export const buyCourse = async (
       throw new Error(orderResponse.data.message);
     }
 
-    console.log("Order Initialized, printing order response", orderResponse);
+    // console.log("Order Initialized, printing order response", orderResponse);
     // console.log("enc", process.env.REACT_APP_RAZORPAY_KEY);
     const options = {
       key: process.env.REACT_APP_RAZORPAY_KEY,
@@ -90,10 +90,10 @@ export const buyCourse = async (
     paymentObject.open();
     paymentObject.on("payment.failed", (response) => {
       toast.error("oops, payment failed");
-      console.log(response.error);
+      // console.log(response.error);
     });
   } catch (error) {
-    console.log("PAYMENT API ERROR.....", error);
+    // console.log("PAYMENT API ERROR.....", error);
     toast.error("Could not make Payment");
   }
 
@@ -101,7 +101,7 @@ export const buyCourse = async (
 };
 
 async function sendPaymentSuccessEmail(response, amount, token) {
-  console.log("this", response);
+  // console.log("this", response);
   try {
     await apiconnector(
       "POST",
@@ -116,7 +116,7 @@ async function sendPaymentSuccessEmail(response, amount, token) {
       }
     );
   } catch (error) {
-    console.log("PAYMENT SUCCESS EMAIL ERROR....", error);
+    // console.log("PAYMENT SUCCESS EMAIL ERROR....", error);
     toast.error("Payment success mail failed");
   }
 }
@@ -138,7 +138,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch) {
     navigate("/dashboard/enrolled-courses");
     dispatch(resetCart());
   } catch (error) {
-    console.log("PAYMENT VERIFY ERROR....", error);
+    // console.log("PAYMENT VERIFY ERROR....", error);
     toast.error("Could not verify Payment");
   }
   toast.dismiss(toastId);

@@ -110,7 +110,7 @@ exports.createCourse = async (req, res) => {
       data: updatedCourse,
     });
   } catch (err) {
-    console.error(err.message);
+    // console.error(err.message);
     return res.status(400).json({
       success: false,
       message: "Course Creation Failed",
@@ -131,7 +131,7 @@ exports.editCourse = async (req, res) => {
 
     // If Thumbnail Image is found, update it
     if (req.files) {
-      console.log("thumbnail update");
+      // console.log("thumbnail update");
       const thumbnail = req.files.thumbnailImage;
       const thumbnailImage = await uploadImageToCloudinary(
         thumbnail,
@@ -209,7 +209,7 @@ exports.editCourse = async (req, res) => {
       data: updatedCourse,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -229,7 +229,7 @@ exports.getAllCourses = async (req, res) => {
       data: courses,
     });
   } catch (err) {
-    console.error(err.message);
+    // console.error(err.message);
     return res.status(400).json({
       success: false,
       message: "Get all Courses failed",
@@ -285,7 +285,7 @@ exports.getCourseDetails = async (req, res) => {
       data: { courseDetails, totalDuration },
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success: false,
       message: error.message,
@@ -314,7 +314,7 @@ exports.getInstructorCourses = async (req, res) => {
       data: instructorCourses,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json({
       success: false,
       message: "Failed to retrieve instructor courses",
@@ -387,7 +387,7 @@ exports.deleteCourse = async (req, res) => {
       message: "Course deleted successfully",
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return res.status(500).json({
       success: false,
       message: "Server error",
@@ -428,7 +428,7 @@ exports.getFullCourseDetails = async (req, res) => {
       userId: userId,
     });
 
-    console.log("courseProgressCount : ", courseProgressCount);
+    // console.log("courseProgressCount : ", courseProgressCount);
 
     if (!courseDetails) {
       return res.status(400).json({

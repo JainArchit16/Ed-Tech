@@ -14,7 +14,7 @@ export const sendOtp = (email, navigate) => {
         email,
         checkUserPresent: true,
       });
-      console.log(response.data.success);
+      // console.log(response.data.success);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -22,7 +22,7 @@ export const sendOtp = (email, navigate) => {
       toast.success("Otp Sent");
       navigate("/verifyemail");
     } catch (error) {
-      console.log("SENDOTP API ERROR............", error);
+      // console.log("SENDOTP API ERROR............", error);
       toast.error(error?.response?.data?.message);
       // dispatch(setProgress(100));
     }
@@ -52,7 +52,7 @@ export const signUp = (
         confirmPassword,
         otp,
       });
-      console.log("SIGNUP API RESPONSE............", response);
+      // console.log("SIGNUP API RESPONSE............", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -61,7 +61,7 @@ export const signUp = (
       toast.success("Signup Successful");
       navigate("/login");
     } catch (error) {
-      console.log("SIGNUP API ERROR............", error);
+      // console.log("SIGNUP API ERROR............", error);
       toast.error("Signup Failed");
       navigate("/signup");
     }
@@ -78,7 +78,7 @@ export const login = (email, password, navigate) => {
         password,
       });
 
-      console.log("LOGIN API RESPONSE............", response);
+      // console.log("LOGIN API RESPONSE............", response);
 
       if (!response.data.success) {
         throw new Error(response.data.message);
@@ -94,14 +94,14 @@ export const login = (email, password, navigate) => {
 
       dispatch(setUser({ ...response.data.user, image: userImage }));
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      console.log(response.data.user.token);
+      // console.log(response.data.user.token);
       dispatch(setToken(response.data.user.token));
       localStorage.setItem("token", response.data.user.token);
-      console.log("Setting token", response.data?.user?.token);
+      // console.log("Setting token", response.data?.user?.token);
       navigate("/dashboard/my-profile");
     } catch (error) {
       // dispatch(setProgress(100))
-      console.log("LOGIN API ERROR............", error);
+      // console.log("LOGIN API ERROR............", error);
       toast.error(error.response.data.message);
     }
     dispatch(setLoading(false));
@@ -117,14 +117,14 @@ export const getPasswordResetToken = (email, setEmailSent) => {
         endpoints.RESETPASSTOKEN_API,
         { email }
       );
-      console.log("RESET PASSWORD TOKEN->", response);
+      // console.log("RESET PASSWORD TOKEN->", response);
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
       toast.success("Reset Email Sent");
       dispatch(setEmailSent(true));
     } catch (error) {
-      console.log("RESET PASSWORD TOKEN ERROR");
+      // console.log("RESET PASSWORD TOKEN ERROR");
       // toast.error("Mkc")
     }
     dispatch(setLoading(false));
@@ -140,13 +140,13 @@ export const resetPassword = (password, confirmPassword, token) => {
         password,
         confirmPassword,
       });
-      console.log("Reset Password Response", response);
+      // console.log("Reset Password Response", response);
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
       toast.success("Password Reset Successfull");
     } catch (e) {
-      console.log("Unable to reset Password");
+      // console.log("Unable to reset Password");
     }
     dispatch(setLoading(false));
   };

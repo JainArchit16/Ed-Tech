@@ -52,7 +52,6 @@ exports.createRating = async (req, res) => {
       user: userId,
     });
 
-    console.log("hi");
     const updatedCourse = await Course.findByIdAndUpdate(
       { _id: courseId },
       {
@@ -68,7 +67,7 @@ exports.createRating = async (req, res) => {
       newRating,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -108,7 +107,7 @@ exports.getAverageRating = async (req, res) => {
       message: "No Ratings Yet",
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -127,7 +126,7 @@ exports.getAllRating = async (req, res) => {
       data: allReviews,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({ message: error.message });
   }
 };

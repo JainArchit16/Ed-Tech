@@ -50,7 +50,7 @@ exports.updateProfile = async (req, res) => {
       updatedUserDetails,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({
       success: false,
       error: error.message,
@@ -61,7 +61,7 @@ exports.updateProfile = async (req, res) => {
 exports.deleteAccount = async (req, res) => {
   try {
     const userId = req.user.id;
-    console.log(userId);
+    // console.log(userId);
     if (!userId) {
       return res.status(500).json({
         success: false,
@@ -76,7 +76,7 @@ exports.deleteAccount = async (req, res) => {
         message: "User not found",
       });
     }
-    console.log(user.additionalDetails);
+    // console.log(user.additionalDetails);
     await Profile.findByIdAndDelete({ _id: user.additionalDetails });
 
     for (const courseId of user.courses) {
@@ -109,7 +109,7 @@ exports.deleteAccount = async (req, res) => {
       message: "User deleted successfully",
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({
       success: false,
       message: "User Cannot be deleted successfully",
@@ -206,7 +206,7 @@ exports.getUserDetails = async (req, res) => {
       data: userDetails,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json({
       success: false,
       message: "User Cannot be Fetched",
@@ -227,7 +227,7 @@ exports.updateDisplayPicture = async (req, res) => {
     }
 
     const image = req.files.pfp;
-    console.log(image);
+    // console.log(image);
     if (!image) {
       return res.status(404).json({
         success: false,
@@ -280,7 +280,7 @@ exports.instructorDashboard = async (req, res) => {
 
     res.status(200).json({ courses: courseData });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

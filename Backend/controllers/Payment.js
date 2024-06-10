@@ -51,7 +51,7 @@ exports.capturePayment = async (req, res) => {
     }
   }
 
-  console.log("The amount in capturePayment is", totalAmount);
+  // console.log("The amount in capturePayment is", totalAmount);
   const currency = "INR";
   const options = {
     amount: totalAmount * 100,
@@ -66,7 +66,7 @@ exports.capturePayment = async (req, res) => {
       message: paymentResponse,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res
       .status(500)
       .json({ success: false, mesage: "Could not Initiate Order" });
@@ -74,7 +74,7 @@ exports.capturePayment = async (req, res) => {
 };
 
 exports.verifyPayment = async (req, res) => {
-  console.log("request in verifyPayment is", req);
+  // console.log("request in verifyPayment is", req);
   const razorpay_order_id = req.body?.razorpay_order_id;
   const razorpay_payment_id = req.body?.razorpay_payment_id;
   const razorpay_signature = req.body?.razorpay_signature;
@@ -158,7 +158,7 @@ const enrollStudents = async (courses, userId, res) => {
         )
       );
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return res.status(500).json({ success: false, message: error.message });
     }
   }
@@ -168,8 +168,6 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
   const { orderId, paymentId, amount } = req.body;
 
   const userId = req.user.id;
-
-  console.log("hi");
 
   if (!orderId || !paymentId || !amount || !userId) {
     return res
@@ -191,7 +189,7 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
       )
     );
   } catch (error) {
-    console.log("error in sending mail", error);
+    // console.log("error in sending mail", error);
     return res
       .status(500)
       .json({ success: false, message: "Could not send email" });
