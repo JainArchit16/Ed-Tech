@@ -5,8 +5,6 @@ import Loader from "../../common/Loader";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { Link } from "react-router-dom";
 
-//Complete krlo isko baad mein
-
 const EnrolledCourses = () => {
   const { user } = useSelector((state) => state.profile);
   const { token } = useSelector((state) => state.auth);
@@ -17,7 +15,6 @@ const EnrolledCourses = () => {
     try {
       const response = await getEnrolledCourses(user, token);
       setEnrolledCourses(response);
-      // console.log(response);
     } catch (error) {
       console.log(error.message());
     }
@@ -28,21 +25,23 @@ const EnrolledCourses = () => {
   }, []);
 
   return (
-    <div className="p-10">
+    <div className="p-4 md:p-10">
       <div className="flex flex-col gap-4 text-white">
-        <h1 className="text-2xl text-white font-inter">Enrolled Courses</h1>
+        <h1 className="text-xl md:text-2xl text-white font-inter">
+          Enrolled Courses
+        </h1>
 
         {!enrolledCourses ? (
           <Loader />
         ) : !enrolledCourses.length ? (
           <p>You Have Not Enrolled In any Course</p>
         ) : (
-          <div className="w-[90%]">
-            <div className="flex flex-row bg-[#2C333F] text-[#C5C7D4] justify-between p-4 rounded-md w-[100%]">
-              <p className="w-[40%]">Course Name</p>
-              <p className="w-[30%]">Duration</p>
-              <p className="w-[20%]">Progress</p>
-              <div className="w-[20%]"></div>
+          <div className="w-full md:w-[90%]">
+            <div className="flex flex-col md:flex-row bg-[#2C333F] text-[#C5C7D4] justify-between p-4 rounded-md">
+              <p className="w-full md:w-[40%]">Course Name</p>
+              <p className="w-full md:w-[30%]">Duration</p>
+              <p className="w-full md:w-[20%]">Progress</p>
+              <div className="w-full md:w-[20%]"></div>
             </div>
             {enrolledCourses.map((elem, index) => (
               <Link
@@ -50,24 +49,28 @@ const EnrolledCourses = () => {
                 to={`/view-course/${elem?._id}/section/${elem.courseContent?.[0]?._id}/sub-section/${elem.courseContent?.[0]?.subSection?.[0]?._id}`}
               >
                 <div
-                  className="flex flex-row justify-between px-6 items-center w-[100%] border-[1px] border-[#2C333F] py-4 border-t-0"
+                  className="flex flex-col md:flex-row justify-between px-4 md:px-6 items-center border-[1px] border-[#2C333F] py-4 border-t-0"
                   key={index}
                 >
-                  <div className="flex flex-row gap-6 items-center w-[40%]">
+                  <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center w-full md:w-[40%]">
                     <img
                       alt="thumbnail"
                       src={elem.thumbnail}
-                      className="rounded-md w-[52px] h-[52px]"
+                      className="rounded-md w-[42px] h-[42px] md:w-[52px] md:h-[52px]"
                     />
-                    <div>
-                      <div className="text-lg">{elem.courseName}</div>
-                      <div className="text-md text-[#838894] w-[80%]">
+                    <div className="flex flex-col items-start md:items-start">
+                      <div className="text-md md:text-lg">
+                        {elem.courseName}
+                      </div>
+                      <div className="text-sm md:text-md text-[#838894] w-full md:w-[80%]">
                         {elem.courseDescription}
                       </div>
                     </div>
                   </div>
-                  <div className="w-[30%] ml-8">{elem?.courseDuration}</div>
-                  <div className="flex flex-col gap-3 w-[20%]">
+                  <div className="w-full md:w-[30%] mt-2 md:mt-0 md:ml-8">
+                    {elem?.courseDuration}
+                  </div>
+                  <div className="flex flex-col gap-2 md:gap-3 w-full md:w-[20%] mt-2 md:mt-0">
                     <div>Progress: {elem.progressPercentage || 0} %</div>
                     <ProgressBar
                       completed={elem.progressPercentage || 0}
@@ -76,7 +79,7 @@ const EnrolledCourses = () => {
                     />
                   </div>
 
-                  <div className="w-[20%]"></div>
+                  <div className="w-full md:w-[20%] mt-2 md:mt-0"></div>
                 </div>
               </Link>
             ))}

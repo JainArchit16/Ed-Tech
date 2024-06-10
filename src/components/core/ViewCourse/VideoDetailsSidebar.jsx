@@ -6,14 +6,16 @@ import {
   setCompletedLectures,
   setCourseSectionData,
   setEntireCourseData,
-  setTotalNoOfLectures,
 } from "../../../slices/viewCourseSlice";
 import { BsChevronDown } from "react-icons/bs";
 import { IoIosArrowBack } from "react-icons/io";
+import { FiMenu } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 
 const VideoDetailsSidebar = ({ setReviewModal }) => {
   const [activeStatus, setActiveStatus] = useState("");
   const [videoBarActive, setVideoBarActive] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,9 +30,7 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
   useEffect(() => {
     return () => {
       dispatch(setCourseSectionData([]));
-
       dispatch(setEntireCourseData([]));
-
       dispatch(setCompletedLectures(0));
     };
   }, []);
@@ -38,11 +38,9 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
   useEffect(() => {
     const setActiveFlags = () => {
       if (!courseSectionData.length) return;
-      // console.log("In Sidebar, courseSectionData",courseSectionData)
       const currentSectionIndex = courseSectionData.findIndex(
         (sec) => sec._id === sectionId
       );
-
       const currentSubSectionIndex = courseSectionData?.[
         currentSectionIndex
       ].subSection.findIndex((subSec) => subSec._id === subSectionId);
@@ -58,16 +56,6 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
     setActiveFlags();
   }, [courseSectionData, courseEntireData, location.pathname]);
 
-  //   useEffect(() => {
-  //     return () => {
-  //       dispatch(setCourseSectionData([]));
-
-  //       dispatch(setEntireCourseData([]));
-
-  //       dispatch(setCompletedLectures(0));
-  //     };
-  //   }, []);
-
   const toggle = (courseId) => {
     if (activeStatus === courseId) {
       setActiveStatus("");
@@ -77,36 +65,43 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
   };
 
   return (
-    <>
-      <div className="flex h-[calc(100vh-3.5rem)] w-[320px] max-w-[350px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800">
-        {/* for buttons and headings */}
+    <div>
+      <div className="md:hidden fixed top-4 left-4 z-50">
+        <button
+          className="p-2 bg-richblack-100 text-richblack-800 rounded"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        >
+          {isSidebarOpen ? <IoClose size={24} /> : <FiMenu size={24} />}
+        </button>
+      </div>
+
+      <div
+        className={`fixed top-0 z-40 h-full w-full bg-richblack-800 transition-transform transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:static md:translate-x-0 md:flex md:w-[320px] md:max-w-[350px] md:flex-col md:border-r-[1px] md:border-r-richblack-700 md:bg-richblack-800 md:h-screen`}
+      >
         <div className="mx-5 flex flex-col items-start justify-between gap-2 gap-y-4 border-b border-richblack-600 py-5 text-lg font-bold text-richblack-25">
-          {/* for buttons */}
-          <div className="flex w-full items-center justify-between ">
+          <div className="md:flex w-full items-end md:items-center justify-between hidden">
             <div
               onClick={() => {
                 navigate("/dashboard/enrolled-courses");
               }}
-              className="flex h-[35px] w-[35px] items-center justify-center rounded-full bg-richblack-100 p-1 text-richblack-700 hover:scale-90"
+              className="flex h-[35px] w-[35px] items-center justify-center rounded-full bg-richblack-100 p-1 text-richblack-700 hover:scale-90 "
               title="back"
             >
               <IoIosArrowBack size={20} />
             </div>
-
             <div>
               <IconBtn text="Add Review" onClick={() => setReviewModal(true)} />
             </div>
           </div>
-          {/* for heading or title */}
-          <div className="flex flex-col">
+          <div className="flex flex-col mt-12 md:mt-0">
             <p>{courseEntireData?.courseName} </p>
             <p className="text-sm font-semibold text-richblack-500">
               {completedLectures?.length} / {totalNoOfLectures}
             </p>
           </div>
         </div>
-
-        {/* for sections and subSections */}
         <div className="h-[calc(100vh - 5rem)] overflow-y-auto">
           {courseSectionData.map((course, index) => (
             <div
@@ -114,8 +109,6 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
               onClick={() => toggle(course?._id)}
               key={index}
             >
-              {/* section */}
-
               <div className="flex flex-row justify-between bg-richblack-600 px-5 py-4">
                 <div className="w-[70%] font-semibold">
                   {course?.sectionName}
@@ -130,8 +123,6 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
                   </span>
                 </div>
               </div>
-
-              {/* subSections */}
               <div>
                 {activeStatus === course?._id && (
                   <div>
@@ -165,7 +156,13 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
           ))}
         </div>
       </div>
-    </>
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black opacity-50 z-30"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+    </div>
   );
 };
 

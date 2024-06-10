@@ -100,7 +100,7 @@ const Sidebar = () => {
                   btn2Handler: () => setConfirmationModal(null),
                 })
               }
-              className="py-2 text-lg font-medium px-8 text-[#838894] ml-4 md:ml-8"
+              className="py-2 text-lg font-medium text-[#838894] ml-4 md:ml-8"
             >
               <div className="flex items-center gap-x-2">
                 <VscSignOut className="text-lg" />

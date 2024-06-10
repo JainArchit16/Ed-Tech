@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BiCloudUpload } from "react-icons/bi";
 import {
   deleteProfile,
@@ -8,7 +8,7 @@ import {
   uploadProfilePicture,
 } from "../../../services/operations/SettingsAPI";
 import { useForm } from "react-hook-form";
-import { setToken } from "../../../slices/authSlice";
+
 import { FiTrash2 } from "react-icons/fi";
 
 const Setting = () => {
@@ -224,7 +224,7 @@ const Setting = () => {
               Cancel
             </button>
             <button
-              className="flex flex-row gap-2 items-center text-black bg-yellow-50 rounded-lg px-4 py-2 font-semibold"
+              className="flex flex-row gap-2 items-center text-black bg-yellow-50 rounded-lg px-4 py-2 font-semibold justify-center"
               type="submit"
             >
               <p>Save</p>
@@ -232,7 +232,7 @@ const Setting = () => {
           </div>
         </form>
 
-        <div className="mt-10 mb-2 flex flex-col md:flex-row gap-x-5 rounded-md border-[1px] border-pink-700 bg-pink-900 p-8 px-12">
+        <div className="mt-10 mb-2 flex flex-col  md:flex-row gap-x-5 rounded-md border-[1px] border-pink-700 bg-pink-900 p-4 md:p-8 md:px-12">
           <div className="flex aspect-square h-14 w-14 items-center justify-center rounded-full bg-pink-700">
             <FiTrash2 className="text-3xl text-pink-200" />
           </div>
@@ -240,7 +240,7 @@ const Setting = () => {
             <h2 className="text-lg font-semibold text-richblack-5">
               Delete Account
             </h2>
-            <div className="text-pink-25">
+            <div className="text-pink-25 w-[90%]">
               <p>Would you like to delete account?</p>
               <p>
                 This account may contain Paid Courses. Deleting your account is
