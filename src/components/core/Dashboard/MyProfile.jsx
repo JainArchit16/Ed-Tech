@@ -20,7 +20,9 @@ const MyProfile = () => {
               className="aspect-square w-10 lg:w-[78px] rounded-full object-cover"
             />
             <div>
-              <p className="text-lg">{user.firstName + " " + user.lastName}</p>
+              <p className="text-lg">
+                {user?.firstName + " " + user?.lastName}
+              </p>
               <p className="text-[#838894] text-md">{user?.email}</p>
             </div>
           </div>
@@ -38,9 +40,9 @@ const MyProfile = () => {
           <div className="flex flex-col gap-4 md:gap-10">
             <p className="text-lg">About</p>
             <p className="text-[#838894] text-md">
-              {user.additionalDetails.about === null
+              {user?.additionalDetails?.about === null
                 ? "Write Something About Yourself"
-                : `${user.additionalDetails.about}`}
+                : `${user?.additionalDetails?.about}`}
             </p>
           </div>
           <IconBtn
@@ -78,8 +80,8 @@ const MyProfile = () => {
               <div>
                 <p>Gender</p>
                 <p className="text-[#838894]">
-                  {user?.additionalDetails.gender
-                    ? `${user?.additionalDetails.gender}`
+                  {user?.additionalDetails?.gender
+                    ? `${user?.additionalDetails?.gender}`
                     : "Add Gender"}
                 </p>
               </div>
@@ -92,16 +94,16 @@ const MyProfile = () => {
               <div>
                 <p>Date Of Birth</p>
                 <p className="text-[#838894]">
-                  {user?.additionalDetails.dateOfBirth
-                    ? `${user?.additionalDetails.dateOfBirth}`
+                  {user?.additionalDetails?.dateOfBirth
+                    ? `${user?.additionalDetails?.dateOfBirth}`
                     : "Add Date of Birth"}
                 </p>
               </div>
               <div>
                 <p>Contact Number</p>
                 <p className="text-[#838894]">
-                  {user?.additionalDetails.contactNumber
-                    ? `${user?.additionalDetails.contactNumber}`
+                  {user?.additionalDetails?.contactNumber
+                    ? `${user?.additionalDetails?.contactNumber}`
                     : "Add Contact Number"}
                 </p>
               </div>

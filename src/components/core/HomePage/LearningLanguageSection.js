@@ -16,12 +16,17 @@ const LearningLanguageSection = () => {
         realistic voice-over, progress tracking, custom schedule and more.
       </div>
       <div className="lg:flex flex-row w-[80%] relative items-center justify-between hidden">
-        <img src={image3} className="shadow-black object-contain" />
+        <img alt="hello" src={image3} className="shadow-black object-contain" />
         <img
+          alt="hello"
           src={image1}
           className="shadow-black object-contain -ml-32 -mr-32"
         />
-        <img src={image2} className="shadow-black object-contain jolly" />
+        <img
+          alt="hello"
+          src={image2}
+          className="shadow-black object-contain jolly"
+        />
       </div>
       <div>
         <Button active={true} linkto={"/signup"}>

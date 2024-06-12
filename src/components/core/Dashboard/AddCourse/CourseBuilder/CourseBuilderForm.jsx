@@ -20,7 +20,6 @@ const CourseBuilderForm = () => {
   const {
     register,
     setValue,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm();

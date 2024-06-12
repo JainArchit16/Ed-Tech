@@ -1,53 +1,44 @@
-import React from 'react'
-// import { useState } from 'react';
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react';
-import { useDispatch} from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
-import { useRef, useState } from "react"
-import { AiOutlineCaretDown } from "react-icons/ai"
-import { VscDashboard, VscSignOut } from "react-icons/vsc"
-import { logout } from "../../../services/operations/authAPI"
-
+import React from "react";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { VscDashboard, VscSignOut } from "react-icons/vsc";
+import { logout } from "../../../services/operations/authAPI";
 
 const ProfileDropDown = () => {
-  const {user} =useSelector((state)=>state.profile);
+  const { user } = useSelector((state) => state.profile);
   // const {token} =useSelector((state)=>state.auth);
   const [isOpen, setIsOpen] = useState(false);
 
-  // Function to toggle the dropdown state
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
   // Function to close the dropdown when a click is detected outside of it
   const handleClickOutside = (event) => {
-    if (isOpen && !event.target.closest('.profile-dropdown')) {
+    if (isOpen && !event.target.closest(".profile-dropdown")) {
       setIsOpen(false);
     }
   };
 
   // Effect to add click event listener when the component mounts
   useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [isOpen]); // Re-run the effect when isOpen changes
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const ref = useRef(null)
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const ref = useRef(null);
 
   return (
-    <button className='relative profile-dropdown'>
-     <img 
-            src={`${user?.image}`}
-            alt="xyz"
-            className='aspect-square w-[40px] rounded-full object-cover'
-            onClick={()=>setIsOpen(!isOpen)}
+    <button className="relative profile-dropdown">
+      <img
+        src={`${user?.image}`}
+        alt="xyz"
+        className="aspect-square w-[40px] rounded-full object-cover"
+        onClick={() => setIsOpen(!isOpen)}
       />
       {isOpen && (
         <div
@@ -63,8 +54,8 @@ const ProfileDropDown = () => {
           </Link>
           <div
             onClick={() => {
-              dispatch(logout(navigate))
-              setIsOpen(false)
+              dispatch(logout(navigate));
+              setIsOpen(false);
             }}
             className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25"
           >
@@ -73,9 +64,8 @@ const ProfileDropDown = () => {
           </div>
         </div>
       )}
-
     </button>
-  )
-}
+  );
+};
 
-export default ProfileDropDown
+export default ProfileDropDown;

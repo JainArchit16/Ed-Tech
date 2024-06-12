@@ -43,6 +43,7 @@ const Navbar = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+  const [isVisible, setIsVisible] = useState(false);
 
   return (
     <div className="w-full border-b-[1px] border-b-richblack-700 pb-3">
@@ -64,9 +65,9 @@ const Navbar = () => {
                 <div
                   className="invisible bg-richblack-5 p-4 absolute z-50 gap-2 flex flex-col rounded-lg
                     text-richblack-900 transition-all opacity-0 duration-200 group-hover:visible group-hover:opacity-100
-                    lg:w-[200px] translate-y-[65%] -translate-x-[30%]"
+                    w-[200px] translate-y-[65%] -translate-x-[30%] group"
                 >
-                  <div className="bg-richblack-5 w-[40px] h-[40px] absolute rotate-45 -z-20 -translate-y-[50%] translate-x-[226%]"></div>
+                  <div className="bg-richblack-5 w-[40px] h-[40px] absolute rotate-45 -z-20 -translate-y-[50%] translate-x-24"></div>
                   {subLinks.length ? (
                     subLinks.map((element, index) => (
                       <Link
@@ -143,15 +144,21 @@ const Navbar = () => {
           <ul className="flex flex-col gap-4 w-full items-center">
             {NavbarLinks.map((element, index) =>
               element.title === "Catalog" ? (
-                <div key={index} className="hidden">
-                  <p>Catalog</p>
-                  <TiArrowSortedDown />
+                <div key={index} onClick={() => setIsVisible(!isVisible)}>
+                  <div className="flex flex-row gap-1 justify-center items-center group">
+                    <p>Catalog</p>
+                    <TiArrowSortedDown />
+                  </div>
                   <div
-                    className="bg-richblack-5 p-4 absolute z-50 gap-2 flex flex-col rounded-lg
-                      text-richblack-900 transition-all opacity-100 duration-200 group-hover:visible group-hover:opacity-100
-                      lg:w-[200px] translate-y-[65%] -translate-x-[30%]"
+                    className={`bg-richblack-5 p-4 absolute z-50 gap-2 flex flex-col rounded-lg
+                      text-richblack-900 transition-all  duration-200 
+                      w-[200px] translate-y-[10%] -translate-x-[30%] group ${
+                        isVisible
+                          ? "opacity-100 visible"
+                          : "opacity-0 invisible"
+                      }`}
                   >
-                    <div className="bg-richblack-5 w-[40px] h-[40px] absolute rotate-45 -z-20 -translate-y-[50%] translate-x-[226%]"></div>
+                    <div className="bg-richblack-5 w-[40px] h-[40px] absolute rotate-45 -z-20 -translate-y-[50%] translate-x-24"></div>
                     {subLinks.length ? (
                       subLinks.map((element, index) => (
                         <Link
