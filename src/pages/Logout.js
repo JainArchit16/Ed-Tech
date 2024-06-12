@@ -1,21 +1,20 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { logout } from '../services/operations/authAPI';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../services/operations/authAPI";
+import { useNavigate } from "react-router-dom";
 import Loader from "../components/common/Loader";
 
 const Logout = () => {
-  const dispatch=useDispatch();
-  const navigate=useNavigate();
-  useEffect(()=>{
-    
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
     dispatch(logout(navigate));
-  },[])
+  }, []);
   return (
     <div>
-        <Loader/>
+      <Loader />
     </div>
-  )
-}
+  );
+};
 
-export default Logout
+export default Logout;
