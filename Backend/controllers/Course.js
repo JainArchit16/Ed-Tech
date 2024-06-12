@@ -297,8 +297,7 @@ exports.getCourseDetails = async (req, res) => {
 exports.getInstructorCourses = async (req, res) => {
   try {
     const userId = req.user.id;
-    // console.log(instructorId);
-    const instructorCourses = await Course.find({
+    let instructorCourses = await Course.find({
       instructor: userId,
     })
       .sort({ createdAt: -1 })
@@ -309,12 +308,28 @@ exports.getInstructorCourses = async (req, res) => {
         },
       })
       .exec();
+
+    const modifiedCourses = instructorCourses.map((course) => {
+      let totalDurationInSeconds = 0;
+      course.courseContent.forEach((content) => {
+        totalDurationInSeconds += content.subSection.reduce(
+          (acc, curr) => acc + parseInt(curr.timeDuration, 10),
+          0
+        );
+      });
+
+      // Create a new object with course data and calculated courseDuration
+      return {
+        ...course._doc, // Copy all properties of the course document
+        courseDuration: convertSecondsToDuration(totalDurationInSeconds), // Add the courseDuration property
+      };
+    });
+
     res.status(200).json({
       success: true,
-      data: instructorCourses,
+      data: modifiedCourses,
     });
   } catch (error) {
-    // console.error(error);
     res.status(500).json({
       success: false,
       message: "Failed to retrieve instructor courses",

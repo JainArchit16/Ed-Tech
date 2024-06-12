@@ -31,22 +31,22 @@ const CourseTable = ({ courses, setCourses }) => {
     setConfirmationModal(null);
     setLoading(false);
   };
-  //Not by me
+
   return (
-    <div className="w-[100%]">
-      <Table className="rounded-xl border border-richblack-800 w-[100%]">
+    <div className="w-full overflow-x-auto">
+      <Table className="rounded-xl border border-richblack-800 w-full">
         <Thead>
-          <Tr className="flex gap-x-10 rounded-t-md border-b border-b-richblack-800 px-6 py-2">
-            <Th className="flex-1 text-left text-sm font-medium uppercase text-richblack-100">
+          <Tr className="flex flex-wrap lg:flex-nowrap gap-x-10 rounded-t-md border-b border-b-richblack-800 px-4 lg:px-6 py-2">
+            <Th className="w-full lg:w-auto flex-1 text-left text-sm font-medium uppercase text-richblack-100">
               Courses
             </Th>
-            <Th className="text-left text-sm font-medium uppercase text-richblack-100">
+            <Th className="w-full lg:w-auto text-left text-sm font-medium uppercase text-richblack-100">
               Duration
             </Th>
-            <Th className="text-left text-sm font-medium uppercase text-richblack-100">
+            <Th className="w-full lg:w-auto text-left text-sm font-medium uppercase text-richblack-100">
               Price
             </Th>
-            <Th className="text-left text-sm font-medium uppercase text-richblack-100">
+            <Th className="w-full lg:w-auto text-left text-sm font-medium uppercase text-richblack-100">
               Actions
             </Th>
           </Tr>
@@ -56,22 +56,21 @@ const CourseTable = ({ courses, setCourses }) => {
             <Tr>
               <Td className="py-10 text-center text-2xl font-medium text-richblack-100">
                 No courses found
-                {/* TODO: Need to change this state */}
               </Td>
             </Tr>
           ) : (
             courses?.map((course) => (
               <Tr
                 key={course._id}
-                className="flex gap-x-10 border-b border-richblack-800 px-6 py-8"
+                className="flex flex-wrap lg:flex-nowrap gap-x-10 border-b border-richblack-800 px-4 lg:px-6 py-4 lg:py-8"
               >
-                <Td className="flex flex-1 gap-x-4">
+                <Td className="flex-1 w-full lg:w-auto flex flex-col lg:flex-row gap-x-4">
                   <img
                     src={course?.thumbnail}
                     alt={course?.courseName}
-                    className="h-[148px] w-[220px] rounded-lg object-cover"
+                    className="h-auto max-h-[148px] w-full lg:w-[220px] rounded-lg object-cover mb-4 lg:mb-0"
                   />
-                  <div className="flex flex-col justify-between">
+                  <div className="flex flex-col justify-between w-full lg:w-auto">
                     <p className="text-lg font-semibold text-richblack-5">
                       {course.courseName}
                     </p>
@@ -96,45 +95,47 @@ const CourseTable = ({ courses, setCourses }) => {
                     )}
                   </div>
                 </Td>
-                <Td className="text-sm font-medium text-richblack-100">
-                  2 hr 30 min
+                <Td className="w-full lg:w-auto text-sm font-medium text-richblack-100">
+                  {course?.courseDuration}
                 </Td>
-                <Td className="text-sm font-medium text-richblack-100">
+                <Td className="w-full lg:w-auto text-sm font-medium text-richblack-100">
                   ₹{course.price}
                 </Td>
-                <Td className="text-sm font-medium text-richblack-100 ">
-                  <button
-                    disabled={loading}
-                    onClick={() => {
-                      navigate(`/dashboard/edit-course/${course._id}`);
-                    }}
-                    title="Edit"
-                    className="px-2 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300"
-                  >
-                    <FiEdit2 size={20} />
-                  </button>
-                  <button
-                    disabled={loading}
-                    onClick={() => {
-                      setConfirmationModal({
-                        text1: "Do you want to delete this course?",
-                        text2:
-                          "All the data related to this course will be deleted",
-                        btn1Text: !loading ? "Delete" : "Loading...  ",
-                        btn2Text: "Cancel",
-                        btn1Handler: !loading
-                          ? () => handleCourseDelete(course._id)
-                          : () => {},
-                        btn2Handler: !loading
-                          ? () => setConfirmationModal(null)
-                          : () => {},
-                      });
-                    }}
-                    title="Delete"
-                    className="px-1 transition-all duration-200 hover:scale-110 hover:text-[#ff0000]"
-                  >
-                    <RiDeleteBin6Line size={20} />
-                  </button>
+                <Td className="w-full lg:w-auto text-sm font-medium text-richblack-100 flex lg:block items-center">
+                  <div>
+                    <button
+                      disabled={loading}
+                      onClick={() => {
+                        navigate(`/dashboard/edit-course/${course._id}`);
+                      }}
+                      title="Edit"
+                      className="px-2 transition-all duration-200 hover:scale-110 hover:text-caribbeangreen-300 mb-2 lg:mb-0"
+                    >
+                      <FiEdit2 size={20} />
+                    </button>
+                    <button
+                      disabled={loading}
+                      onClick={() => {
+                        setConfirmationModal({
+                          text1: "Do you want to delete this course?",
+                          text2:
+                            "All the data related to this course will be deleted",
+                          btn1Text: !loading ? "Delete" : "Loading...  ",
+                          btn2Text: "Cancel",
+                          btn1Handler: !loading
+                            ? () => handleCourseDelete(course._id)
+                            : () => {},
+                          btn2Handler: !loading
+                            ? () => setConfirmationModal(null)
+                            : () => {},
+                        });
+                      }}
+                      title="Delete"
+                      className="px-1 transition-all duration-200 hover:scale-110 hover:text-[#ff0000]"
+                    >
+                      <RiDeleteBin6Line size={20} />
+                    </button>
+                  </div>
                 </Td>
               </Tr>
             ))

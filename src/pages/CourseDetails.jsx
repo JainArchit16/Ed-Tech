@@ -286,7 +286,7 @@ const CourseDetails = () => {
             </div>
 
             <div className="mb-12 py-4">
-              <p className="text-[28px] font-semibold">Author</p>
+              <p className="text-2xl font-semibold">Author</p>
               <div className="flex items-center gap-4 py-4">
                 <img
                   alt="Instructor"
