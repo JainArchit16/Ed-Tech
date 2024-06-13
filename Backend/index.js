@@ -26,7 +26,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://study-notion-gamma-lovat.vercel.app/",
+      "https://study-notion-gamma-lovat.vercel.app",
     ],
     credentials: true,
   })
