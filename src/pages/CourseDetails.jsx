@@ -14,7 +14,7 @@ import { BiVideo } from "react-icons/bi";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import CourseDetailsCard from "../components/core/Course/CourseDetailsCard";
 import { toast } from "react-hot-toast";
-import Footer from "../components/common/Footer.js";
+import Footer from "../components/common/Footer.jsx";
 import Loader from "../components/common/Loader.jsx";
 import { ACCOUNT_TYPE } from "../utils/constants.js";
 import { addToCart } from "../slices/cartSlice.js";

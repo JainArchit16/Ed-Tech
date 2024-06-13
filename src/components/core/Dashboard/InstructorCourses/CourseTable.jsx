@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Table, Thead, Tr, Td, Th, Tbody } from "react-super-responsive-table";
+import {
+  Table,
+  Thead,
+  Tr,
+  Td,
+  Th,
+  Tbody,
+  global,
+} from "react-super-responsive-table";
 import { formatDate } from "../../../../services/formatDate";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../../../common/ConfirmationModal";
