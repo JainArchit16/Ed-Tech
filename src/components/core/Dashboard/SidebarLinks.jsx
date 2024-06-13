@@ -4,7 +4,7 @@ import * as Icons from "react-icons/vsc";
 import { NavLink, matchPath, useLocation } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 
-const SidebarLinks = ({ e, iconName }) => {
+const SidebarLinks = ({ e, iconName, onClick }) => {
   const Icon = Icons[iconName];
   const location = useLocation();
 
@@ -22,6 +22,7 @@ const SidebarLinks = ({ e, iconName }) => {
   return (
     <NavLink
       to={e.path}
+      onClick={onClick}
       className={`py-2 px-4 relative md:px-8 md:py-2 text-lg font-medium transition-all duration-300 ${
         matchRoute(e.path) ? "text-yellow-50 bg-yellow-800" : "bg-opacity-0"
       }`}

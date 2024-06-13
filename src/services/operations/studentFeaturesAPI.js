@@ -89,7 +89,7 @@ export const buyCourse = async (
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
     paymentObject.on("payment.failed", (response) => {
-      toast.error("oops, payment failed");
+      toast.error("Oops, payment failed");
       // console.log(response.error);
     });
   } catch (error) {
@@ -134,7 +134,7 @@ async function verifyPayment(bodyData, token, navigate, dispatch) {
       throw new Error(response.data.message);
     }
 
-    toast.success("Payment successful, you are added to the course!");
+    toast.success("Payment successful, Course added!");
     navigate("/dashboard/enrolled-courses");
     dispatch(resetCart());
   } catch (error) {
