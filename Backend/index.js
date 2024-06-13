@@ -18,7 +18,7 @@ const contactUsRoutes = require("./routes/ContactUs");
 const paymentRoute = require("./routes/Payment");
 
 const PORT = process.env.PORT || 4000;
-
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -26,7 +26,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      // "https://study-notion-gamma-lovat.vercel.app/",
+      "https://study-notion-gamma-lovat.vercel.app/",
     ],
     credentials: true,
   })
