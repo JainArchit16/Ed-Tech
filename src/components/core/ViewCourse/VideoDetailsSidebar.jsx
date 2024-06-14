@@ -66,7 +66,7 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
 
   return (
     <div>
-      <div className="md:hidden fixed top-4 left-4 z-50">
+      <div className="md:hidden fixed top-4 left-4 z-[100]">
         <button
           className="p-2 bg-richblack-100 text-richblack-800 rounded"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -76,7 +76,7 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
       </div>
 
       <div
-        className={`fixed top-0 z-40 h-full w-full bg-richblack-800 transition-transform transform ${
+        className={`fixed top-0 z-[90] h-full w-full bg-richblack-800 transition-transform transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:static md:translate-x-0 md:flex md:w-[320px] md:max-w-[350px] md:flex-col md:border-r-[1px] md:border-r-richblack-700 md:bg-richblack-800 md:h-screen`}
       >
