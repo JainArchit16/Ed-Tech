@@ -30,6 +30,7 @@ import Instructor from "./components/core/Dashboard/InstructorDashboard/Instruct
 
 function App() {
   const { user } = useSelector((state) => state.profile);
+  console.log("hello");
 
   return (
     <div className="w-full h-fit flex flex-col bg-richblack-900 font-inter">
