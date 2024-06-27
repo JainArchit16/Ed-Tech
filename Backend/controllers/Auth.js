@@ -5,6 +5,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/mailSender");
+const { passwordUpdated } = require("../mail/templates/passwordUpdate");
 
 require("dotenv").config();
 
@@ -257,14 +258,17 @@ exports.changePassword = async (req, res) => {
     );
 
     try {
+      const link = process.env.FRONTEND_LINK;
       const info = await sendMail(
         updatedUser.email,
         "Passowrd Changed",
-        `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+        passwordUpdated(
+          updatedUser.email,
+          updatedUserDetails.firstName + " " + updatedUserDetails.lastName,
+          link
+        )
       );
-      //   console.log("Email sent successfully:", emailResponse.response);
     } catch (error) {
-      //   console.error("Error occurred while sending email:", error);
       return res.status(500).json({
         success: false,
         message: "Error occurred while sending email",
@@ -272,7 +276,6 @@ exports.changePassword = async (req, res) => {
       });
     }
   } catch (error) {
-    // console.error("Error occurred while updating password:", error);
     return res.status(500).json({
       success: false,
       message: "Error occurred while updating password",
