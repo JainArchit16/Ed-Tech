@@ -10,7 +10,7 @@ const {
   instructorDashboard,
 } = require("../controllers/Profile");
 
-const { auth, isStudent, isInstructor } = require("../middlewares/auth");
+const { auth, isInstructor } = require("../middlewares/auth");
 
 router.get("/getUserDetails", auth, getUserDetails);
 
