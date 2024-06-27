@@ -1,5 +1,5 @@
-exports.paymentSuccess = (amount, paymentId, orderId, name,lastname) => {
-    return `<!DOCTYPE html>
+exports.paymentSuccess = (amount, paymentId, orderId, name, lastname) => {
+  return `<!DOCTYPE html>
     <html>
     
     <head>
@@ -67,7 +67,7 @@ exports.paymentSuccess = (amount, paymentId, orderId, name,lastname) => {
     
     <body>
         <div class="container">
-            <a href="https://studynotion-edtech-project.vercel.app"><img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png"
+            <a href="https://study-notion-gamma-lovat.vercel.app/"><img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png"
                     alt="StudyNotion Logo"></a>
             <div class="message">
             Your payment of ₹${amount} has been successfully received.
@@ -88,4 +88,4 @@ exports.paymentSuccess = (amount, paymentId, orderId, name,lastname) => {
     </body>
     
     </html>`;
-  };
+};
