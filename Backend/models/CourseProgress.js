@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-//Not by me
 const courseProgress = new mongoose.Schema({
   courseID: {
     type: mongoose.Schema.Types.ObjectId,
