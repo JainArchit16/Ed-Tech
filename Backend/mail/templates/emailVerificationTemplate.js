@@ -1,4 +1,4 @@
-const otpTemplate = (otp) => {
+const otpTemplate = (otp, link) => {
   return `<!DOCTYPE html>
 	<html>
 	
@@ -66,7 +66,7 @@ const otpTemplate = (otp) => {
 	
 	<body>
 		<div class="container">
-			<a href="https://study-notion-gamma-lovat.vercel.app/"><img class="logo"
+			<a href=${link}><img class="logo"
 					src="https://i.ibb.co/7Xyj3PC/logo.png" alt="StudyNotion Logo"></a>
 			<div class="message">OTP Verification Email</div>
 			<div class="body">

@@ -1,4 +1,4 @@
-exports.paymentSuccess = (amount, paymentId, orderId, name, lastname) => {
+exports.paymentSuccess = (amount, paymentId, orderId, name, lastname, link) => {
   return `<!DOCTYPE html>
     <html>
     
@@ -67,7 +67,7 @@ exports.paymentSuccess = (amount, paymentId, orderId, name, lastname) => {
     
     <body>
         <div class="container">
-            <a href="https://study-notion-gamma-lovat.vercel.app/"><img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png"
+            <a href=${link}><img class="logo" src="https://i.ibb.co/7Xyj3PC/logo.png"
                     alt="StudyNotion Logo"></a>
             <div class="message">
             Your payment of ₹${amount} has been successfully received.

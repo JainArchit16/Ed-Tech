@@ -1,5 +1,4 @@
-const mongoose = require("mongoose")
-
+const mongoose = require("mongoose");
 
 //Not by me
 const courseProgress = new mongoose.Schema({
@@ -17,6 +16,6 @@ const courseProgress = new mongoose.Schema({
       ref: "SubSection",
     },
   ],
-})
+});
 
-module.exports = mongoose.model("courseProgress", courseProgress)
+module.exports = mongoose.model("courseProgress", courseProgress);
