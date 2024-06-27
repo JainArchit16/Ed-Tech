@@ -7,12 +7,7 @@ const {
   sendPaymentSuccessEmail,
 } = require("../controllers/Payment");
 
-const {
-  auth,
-  isInstructor,
-  isStudent,
-  isAdmin,
-} = require("../middlewares/auth");
+const { auth, isStudent } = require("../middlewares/auth");
 
 router.post("/capturePayment", auth, isStudent, capturePayment);
 
