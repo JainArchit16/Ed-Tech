@@ -54,7 +54,7 @@ function App() {
   useEffect(() => {
     const wakeServer = async () => {
       try {
-        const res = await fetch(BASE_URL/health, {
+        const res = await fetch(BASE_URL+"/health", {
           cache: "no-store",
         });
 
