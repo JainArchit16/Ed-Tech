@@ -52,7 +52,7 @@ function App() {
     {showSnow && (
             <Snowfall
               snowflakeCount={40}
-              color={snowColor}
+              color="#fbfbfb"
               style={{
                 position: "fixed",
                 width: "100vw",
