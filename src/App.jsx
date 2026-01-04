@@ -27,11 +27,40 @@ import CourseDetails from "./pages/CourseDetails";
 import ViewCourse from "./pages/ViewCourse";
 import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
+import Snowfall from "react-snowfall";
+import React, { useState, useEffect } from "react";
+
 
 function App() {
   const { user } = useSelector((state) => state.profile);
+  const [showSnow, setShowSnow] = useState(false);
+
+    // 2. Handle "Winter Only" Logic
+  useEffect(() => {
+    const month = new Date().getMonth();
+    // Month 11 = Dec, 0 = Jan, 1 = Feb.
+    // This logic removes snow automatically when April (3) starts.
+    if (month === 11 || month <= 2) {
+      setShowSnow(true);
+    } else {
+      setShowSnow(false);
+    }
+  }, []);
 
   return (
+    <>
+    {showSnow && (
+            <Snowfall
+              snowflakeCount={40}
+              color={snowColor}
+              style={{
+                position: "fixed",
+                width: "100vw",
+                height: "100vh",
+                zIndex: 9999,
+              }}
+            />
+          )}
     <div className="w-full h-fit flex flex-col bg-richblack-900 font-inter">
       <Navbar></Navbar>
       <Routes>
@@ -99,6 +128,7 @@ function App() {
         </Route>
       </Routes>
     </div>
+      </>
   );
 }
 
