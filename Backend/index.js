@@ -16,6 +16,7 @@ const profileRoutes = require("./routes/Profile");
 const courseRoutes = require("./routes/Course");
 const contactUsRoutes = require("./routes/ContactUs");
 const paymentRoute = require("./routes/Payment");
+const healthRoutes = require("./routes/health");
 
 const PORT = process.env.PORT || 4000;
 app.use(express.urlencoded({ extended: false }));
@@ -44,6 +45,7 @@ app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/course", courseRoutes);
 app.use("/api/v1/payment", paymentRoute);
 app.use("/api/v1/contact", contactUsRoutes);
+app.use("/api/v1", healthRoutes);
 
 app.get("/", (req, res) => {
   return res.json({
