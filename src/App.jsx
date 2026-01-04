@@ -29,6 +29,7 @@ import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
 import Snowfall from "react-snowfall";
 import React, { useState, useEffect } from "react";
+import Loader from "./components/common/Loader"
 
 
 function App() {
@@ -46,6 +47,32 @@ function App() {
       setShowSnow(false);
     }
   }, []);
+
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const wakeServer = async () => {
+      try {
+        const res = await fetch(BACKEND_URL, {
+          cache: "no-store",
+        });
+
+        if (res.ok) {
+          setReady(true);
+        } else {
+          throw new Error();
+        }
+      } catch {
+        setTimeout(wakeServer, 2500);
+      }
+    };
+
+    wakeServer();
+  }, []);
+
+  if (!ready) {
+    return <Loader />;
+  }
 
   return (
     <>
