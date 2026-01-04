@@ -35,6 +35,7 @@ import Loader from "./components/common/Loader"
 function App() {
   const { user } = useSelector((state) => state.profile);
   const [showSnow, setShowSnow] = useState(false);
+  const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
     // 2. Handle "Winter Only" Logic
   useEffect(() => {
@@ -53,7 +54,7 @@ function App() {
   useEffect(() => {
     const wakeServer = async () => {
       try {
-        const res = await fetch(BACKEND_URL, {
+        const res = await fetch(BASE_URL/health, {
           cache: "no-store",
         });
 
