@@ -10,6 +10,7 @@ const mailSender = async (email, title, body) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          from: "Study Notion",
           to: email,
           subject: title,
           html: body,
